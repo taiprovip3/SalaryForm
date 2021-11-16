@@ -1,4 +1,4 @@
---drop database n11_qllsp;select * from bangchamcong
+--drop database n11_qllsp	;select * from bangchamcong select * from taikhoan
 create database n11_qllsp;
 go
 use n11_qllsp;
@@ -385,24 +385,24 @@ create table sanphamcongnhan(--chi tiết bản chấm công của công nhân
 );
 --GOGOGO
 insert into sanphamcongnhan values ('CN1','CD1',23,12000,GETDATE());
-insert into sanphamcongnhan values ('CN2','CD1',25,11000,GETDATE());
-insert into sanphamcongnhan values ('CN3','CD1',26,12000,GETDATE());
-insert into sanphamcongnhan values ('CN1','CD1',27,13000,GETDATE());
-insert into sanphamcongnhan values ('CN4','CD1',28,14000,GETDATE());
-insert into sanphamcongnhan values ('CN5','CD1',28,14000,GETDATE());
-insert into sanphamcongnhan values ('CN6','CD1',23,15000,GETDATE());
-insert into sanphamcongnhan values ('CN7','CD1',26,15000,GETDATE());
-insert into sanphamcongnhan values ('CN1','CD1',24,16000,GETDATE());
-insert into sanphamcongnhan values ('CN3','CD1',22,17000,GETDATE());
+insert into sanphamcongnhan values ('CN2','CD2',25,11000,GETDATE());
+insert into sanphamcongnhan values ('CN3','CD3',26,12000,GETDATE());
+insert into sanphamcongnhan values ('CN1','CD4',27,13000,GETDATE());
+insert into sanphamcongnhan values ('CN4','CD5',28,14000,GETDATE());
+insert into sanphamcongnhan values ('CN5','CD6',28,14000,GETDATE());
+insert into sanphamcongnhan values ('CN6','CD7',23,15000,GETDATE());
+insert into sanphamcongnhan values ('CN7','CD8',26,15000,GETDATE());
+insert into sanphamcongnhan values ('CN1','CD9',24,16000,GETDATE());
+insert into sanphamcongnhan values ('CN3','CD2',22,17000,GETDATE());
 insert into sanphamcongnhan values ('CN3','CD1',23,17000,GETDATE());
-insert into sanphamcongnhan values ('CN2','CD1',22,18000,GETDATE());
-insert into sanphamcongnhan values ('CN5','CD1',21,14000,GETDATE());
-insert into sanphamcongnhan values ('CN5','CD1',23,13000,GETDATE());
-insert into sanphamcongnhan values ('CN7','CD1',26,12000,GETDATE());
---GOGOGO
+insert into sanphamcongnhan values ('CN2','CD2',22,18000,GETDATE());
+insert into sanphamcongnhan values ('CN5','CD3',21,14000,GETDATE());
+insert into sanphamcongnhan values ('CN5','CD4',23,13000,GETDATE());
+insert into sanphamcongnhan values ('CN7','CD5',26,12000,GETDATE());
+--GOGOGOselect 
 create table sanphamnhanvien(-- chi tiết bản chấm công của nhân viên
 	maNhanVien varchar(255),
-    soGioTangCa int(255),
+    soGioTangCa int,
 	loaiTangCa smallint,
 	ngayCong Date PRIMARY KEY
 );
@@ -419,11 +419,14 @@ insert into sanphamnhanvien values ('NV10',4,1,'2021-11-04');
 --GOGOGO
 create table danhsachphieuluong(
 	 stt int,
-	 maPhieuLuong varchar(255),
-	 thangLuong smallint PRIMARY KEY,
+	 maPhieuLuong varchar(255) PRIMARY KEY,
+	 thangLuong smallint,
 	 luongDaTra money DEFAULT NULL,
 	 ngayLuu DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+--GOGOGO
+insert into danhsachphieuluong values (1,'PLNVHC1',10,80000000,CURRENT_TIMESTAMP);
+insert into danhsachphieuluong values (2,'PLCN1',10,95000000,'2021-10-22 20:53:41.113');
 --GOGOGO
 create table taikhoan(
 	 username varchar(255),
@@ -449,8 +452,9 @@ add constraint FK_congdoan2sanpham
 foreign key (maSanPham) references sanpham(maSanPham);
 --GOGOGO
 alter table bangchamcong
-add constraint FK_bangchamcong2phanxuong
-foreign key (maPhanXuong) references phanxuong(maPhanXuong);
+add
+	foreign key (maDonVi) references phanxuong(maPhanXuong),
+	foreign key (maDonVi) references phongban(maPhongBan);
 --GOGOGO
 alter table donxinnghi
 add

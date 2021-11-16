@@ -4,6 +4,11 @@
  */
 package gui;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author taiproduaxe
@@ -31,6 +36,7 @@ public class TinhTienLuong_luulai extends javax.swing.JFrame {
 
         cbLoai = new javax.swing.JComboBox<>();
         btnChon = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,18 +56,26 @@ public class TinhTienLuong_luulai extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Chọn bảng đối tượng hiện hành:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnChon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cbLoai, 0, 206, Short.MAX_VALUE)
+            .addComponent(cbLoai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChon, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -73,9 +87,14 @@ public class TinhTienLuong_luulai extends javax.swing.JFrame {
     }//GEN-LAST:event_cbLoaiActionPerformed
 
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
-        TinhTienLuong ttl = new TinhTienLuong();
-        String x = cbLoai.getSelectedItem().toString();
-        ttl.luuLaiPhieuLuong(x);
+//        try {
+//            TinhTienLuong ttl = new TinhTienLuong();
+//            String x = cbLoai.getSelectedItem().toString();
+//            ttl.luuLaiPhieuLuong(x);
+//            this.dispose();
+//        } catch (SQLException | ParseException ex) {
+//            Logger.getLogger(TinhTienLuong_luulai.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_btnChonActionPerformed
 
     /**
@@ -116,5 +135,6 @@ public class TinhTienLuong_luulai extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChon;
     private javax.swing.JComboBox<String> cbLoai;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
