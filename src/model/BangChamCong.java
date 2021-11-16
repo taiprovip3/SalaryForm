@@ -3,59 +3,54 @@ import java.util.Date;
 import java.util.Objects;
 public class BangChamCong {
     private String maBangChamCong;
-    private Date thoiGian;
-    private String maPhanXuong;
-    /**
-     *
-     * @getter va setter BangChamCong
-     */
+    private String maDonVi;
+    private Date ngayChamCong;
+
     public String getMaBangChamCong() {
         return maBangChamCong;
     }
+
     public void setMaBangChamCong(String maBangChamCong) {
         this.maBangChamCong = maBangChamCong;
     }
-    public Date getThoiGian() {
-        return thoiGian;
+
+    public String getMaDonVi() {
+        return maDonVi;
     }
-    public void setThoiGian(Date thoiGian) {
-        this.thoiGian = thoiGian;
+
+    public void setMaDonVi(String maDonVi) {
+        this.maDonVi = maDonVi;
     }
-    public String getMaPhanXuong() {
-        return maPhanXuong;
+
+    public Date getNgayChamCong() {
+        return ngayChamCong;
     }
-    public void setMaPhanXuong(String maPhanXuong) {
-        this.maPhanXuong = maPhanXuong;
+
+    public void setNgayChamCong(Date ngayChamCong) {
+        this.ngayChamCong = ngayChamCong;
     }
-    /**
-     *
-     * @ham tao BangChamCong
-     */
+
     public BangChamCong() {
     }
-    public BangChamCong(String maBangChamCong, Date thoiGian, String maPhanXuong) {
+
+    public BangChamCong(String maBangChamCong, String maDonVi, Date ngayChamCong) {
         this.maBangChamCong = maBangChamCong;
-        this.thoiGian = thoiGian;
-        this.maPhanXuong = maPhanXuong;
+        this.maDonVi = maDonVi;
+        this.ngayChamCong = ngayChamCong;
     }
-    /**
-     *
-     * @ToString BangChamCong
-     */
+
     @Override
     public String toString() {
-        return "BangChamCong{" + "maBangChamCong=" + maBangChamCong + ", thoiGian=" + thoiGian + ", maPhanXuong=" + maPhanXuong + '}';
+        return "BangChamCong{" + "maBangChamCong=" + maBangChamCong + ", maDonVi=" + maDonVi + ", ngayChamCong=" + ngayChamCong + '}';
     }
-    /**
-     *
-     * @hashcode equal BangChamCong
-     */
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.maBangChamCong);
+        hash = 47 * hash + Objects.hashCode(this.maBangChamCong);
         return hash;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -73,4 +68,5 @@ public class BangChamCong {
         }
         return true;
     }
+    
 }

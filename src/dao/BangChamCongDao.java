@@ -2,6 +2,7 @@ package dao;
 import connectDB.Database;
 import model.BangChamCong;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,9 +30,9 @@ public class BangChamCongDao {
         statement = conn.prepareCall(sql);
         statement.setInt(1, stt);
         statement.setString(2, bcc.getMaBangChamCong());
-        Timestamp ts = new Timestamp(bcc.getThoiGian().getTime());
-        statement.setTimestamp(3, ts);
-        statement.setString(4, bcc.getMaPhanXuong());
+        statement.setString(3, bcc.getMaDonVi());
+        Date ts = new Date(bcc.getNgayChamCong().getTime());
+        statement.setDate(4, ts);
         statement.execute();
         conn.close();
         return true;
@@ -47,7 +48,7 @@ public class BangChamCongDao {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next())
             {
-                BangChamCong bcc = new BangChamCong(rs.getString("maBangChamCong"), rs.getTimestamp("thoiGian"), rs.getString("maPhanXuong"));
+                BangChamCong bcc = new BangChamCong(rs.getString("maBangChamCong"), rs.getString("maDonVi"), rs.getDate("ngayChamCong"));
                 lsBcc.add(bcc);
             }
         } catch (SQLException ex) {
@@ -65,12 +66,12 @@ public class BangChamCongDao {
         Connection conn = null;
         PreparedStatement stmt = null;
         conn = Database.getConnection();
-        String sql = "update bangchamcong set maBangChamCong=?,thoiGian=?,maPhanXuong=? where maBangChamCong=?";
+        String sql = "update bangchamcong set maBangChamCong=?,maDonVi=?,ngayChamCong=? where maBangChamCong=?";
         stmt = conn.prepareCall(sql);
         stmt.setString(1, bccnew.getMaBangChamCong());
-        Timestamp ts = new Timestamp(bccnew.getThoiGian().getTime());
-        stmt.setTimestamp(2, ts);
-        stmt.setString(3, bccnew.getMaPhanXuong());
+        stmt.setString(2, bccnew.getMaDonVi());
+        Date ts = new Date(bccnew.getNgayChamCong().getTime());
+        stmt.setDate(3, ts);
         stmt.setString(4, maBCCcu);
         stmt.execute();
         return true;

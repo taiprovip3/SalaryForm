@@ -383,7 +383,7 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
         lsBcc = bccDao.loadDataToList();
         tabModel.setRowCount(0);
         for (BangChamCong bangChamCong : lsBcc) {
-            tabModel.addRow(new Object[] {tabModel.getRowCount()+1, bangChamCong.getMaBangChamCong(), bangChamCong.getThoiGian(), bangChamCong.getMaPhanXuong()});
+            tabModel.addRow(new Object[] {tabModel.getRowCount()+1, bangChamCong.getMaBangChamCong(), bangChamCong.getMaDonVi(), bangChamCong.getNgayChamCong()});
         }
     }
 }

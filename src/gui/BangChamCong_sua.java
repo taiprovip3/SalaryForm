@@ -33,7 +33,6 @@ public class BangChamCong_sua extends javax.swing.JFrame{
 
         jLabel2 = new javax.swing.JLabel();
         groupRdTime = new javax.swing.ButtonGroup();
-        groupRdMaPx = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPatternData = new javax.swing.JTable();
@@ -41,7 +40,7 @@ public class BangChamCong_sua extends javax.swing.JFrame{
         jScrollPane2 = new javax.swing.JScrollPane();
         tblWillData = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnXoaRong = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -63,16 +62,9 @@ public class BangChamCong_sua extends javax.swing.JFrame{
         rdTime3 = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        txtNhapMaPX = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        rdMaPX1 = new javax.swing.JRadioButton();
-        jSeparator4 = new javax.swing.JSeparator();
         jTextField5 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        chkChonMaPX = new javax.swing.JComboBox<>();
-        jSeparator6 = new javax.swing.JSeparator();
-        rdMaPX2 = new javax.swing.JRadioButton();
+        cbChonMaDV = new javax.swing.JComboBox<>();
 
         jLabel2.setText("jLabel2");
 
@@ -132,11 +124,11 @@ public class BangChamCong_sua extends javax.swing.JFrame{
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
         );
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Xóa rỗng");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXoaRong.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnXoaRong.setText("Xóa rỗng");
+        btnXoaRong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXoaRongActionPerformed(evt);
             }
         });
 
@@ -164,19 +156,20 @@ public class BangChamCong_sua extends javax.swing.JFrame{
                 .addGap(20, 20, 20)
                 .addComponent(btnSua)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXoaRong, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(229, 229, 229)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnXoaRong, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -286,7 +279,7 @@ public class BangChamCong_sua extends javax.swing.JFrame{
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblTime)
                                             .addComponent(lblDate))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 105, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdTime2))
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -335,54 +328,17 @@ public class BangChamCong_sua extends javax.swing.JFrame{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Mã phân xưởng mới:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
-
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField3.setText("PX");
-        jTextField3.setEnabled(false);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-
-        txtNhapMaPX.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtNhapMaPX.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNhapMaPXActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel12.setText(":");
-
-        groupRdMaPx.add(rdMaPX1);
-        rdMaPX1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rdMaPX1.setText("Chọn");
-        rdMaPX1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdMaPX1ActionPerformed(evt);
-            }
-        });
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Mã đơn vị mới:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
         jTextField5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField5.setText("PX");
+        jTextField5.setText("Nhấp chọn");
         jTextField5.setEnabled(false);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel13.setText(":");
 
-        chkChonMaPX.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        chkChonMaPX.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50" }));
-
-        groupRdMaPx.add(rdMaPX2);
-        rdMaPX2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        rdMaPX2.setText("Chọn");
-        rdMaPX2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdMaPX2ActionPerformed(evt);
-            }
-        });
+        cbChonMaDV.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cbChonMaDV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PX1", "PX2", "PX3", "PX4", "PX5", "PX6", "PX7", "PX8", "PX9", "PX10", "PB1", "PB2", "PB3", "PB4", "PB5", "PB6", "PB7", "PB8", "PB9", "PB10" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -390,55 +346,20 @@ public class BangChamCong_sua extends javax.swing.JFrame{
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNhapMaPX, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkChonMaPX, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jSeparator4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdMaPX1))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rdMaPX2)))
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbChonMaDV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtNhapMaPX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdMaPX1)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)
-                        .addComponent(chkChonMaPX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(rdMaPX2)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(cbChonMaDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -494,22 +415,6 @@ public class BangChamCong_sua extends javax.swing.JFrame{
             txtNhapThoiGian.setEditable(true);
     }//GEN-LAST:event_rdTime3ActionPerformed
 
-    private void rdMaPX1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMaPX1ActionPerformed
-        if(rdMaPX1.isSelected())
-        {
-            txtNhapMaPX.setEditable(true);
-            chkChonMaPX.disable();
-        }
-    }//GEN-LAST:event_rdMaPX1ActionPerformed
-
-    private void rdMaPX2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMaPX2ActionPerformed
-        if(rdMaPX2.isSelected())
-        {
-            txtNhapMaPX.setEditable(false);
-            chkChonMaPX.enable();
-        }
-    }//GEN-LAST:event_rdMaPX2ActionPerformed
-
     private void rdTime1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdTime1ActionPerformed
         if(rdTime1.isSelected())
             txtNhapThoiGian.setEditable(false);
@@ -517,45 +422,32 @@ public class BangChamCong_sua extends javax.swing.JFrame{
             txtNhapThoiGian.setEditable(true);
     }//GEN-LAST:event_rdTime1ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void txtNhapMaPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNhapMaPXActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNhapMaPXActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXoaRongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaRongActionPerformed
         txtBCC.setText("");
         Date d = new Date();
         dateThoiGian.setDate(d);
         txtNhapThoiGian.setText("");
-        txtNhapMaPX.setText("");
-        chkChonMaPX.setSelectedIndex(0);
+        cbChonMaDV.setSelectedIndex(0);
         groupRdTime.clearSelection();
-        groupRdMaPx.clearSelection();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        cbChonMaDV.setSelectedIndex(0);
+    }//GEN-LAST:event_btnXoaRongActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         String getMaBCC = "BCC"+txtBCC.getText();
+        String getMaDV = cbChonMaDV.getSelectedItem().toString();
         Date getDate = null;
-        String getMaPX = null;
         String signTime = null;
-        String signPX = null;
+        String signDV = null;
         if(rdTime1.isSelected())
             signTime = "rdTime1";
         if(rdTime2.isSelected())
             signTime = "rdTime2";
         if(rdTime3.isSelected())
             signTime = "rdTime3";
-        if(rdMaPX1.isSelected())
-            signPX = "rdMaPX1";
-        if(rdMaPX2.isSelected())
-            signPX = "rdMaPX2";
         if(signTime == "rdTime1")
             getDate = dateThoiGian.getDate();
         if(signTime == "rdTime2")
@@ -570,11 +462,7 @@ public class BangChamCong_sua extends javax.swing.JFrame{
         }
         if(signTime == "rdTime3")
             getDate = new Date();
-        if(signPX == "rdMaPX1")
-            getMaPX = "PX"+txtNhapMaPX.getText();
-        if(signPX == "rdMaPX2")
-            getMaPX = "PX"+chkChonMaPX.getSelectedItem().toString();
-        if(getMaBCC.length()<=3 || getDate == null || getMaPX == null)
+        if(getMaBCC.length()<=3 || getDate == null)
             JOptionPane.showMessageDialog(rootPane, "Vui lòng kiểm tra lại các trường dữ liệu!");
         else
         {
@@ -585,7 +473,7 @@ public class BangChamCong_sua extends javax.swing.JFrame{
                     BangChamCongDao bccDao = new BangChamCongDao();
                     String maBCCcu = tabModelPattern.getValueAt(0, 1).toString();
                     lsBcc = bccDao.loadDataToList();
-                    BangChamCong bcc = new BangChamCong(getMaBCC, getDate, getMaPX);
+                    BangChamCong bcc = new BangChamCong(getMaBCC, getMaDV, getDate);
                     if(lsBcc.contains(bcc))
                         JOptionPane.showMessageDialog(rootPane, "Mã sửa bị trùng với mã đã tồn tại");
                     else{
@@ -636,15 +524,13 @@ public class BangChamCong_sua extends javax.swing.JFrame{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
-    private javax.swing.JComboBox<String> chkChonMaPX;
+    private javax.swing.JButton btnXoaRong;
+    private javax.swing.JComboBox<String> cbChonMaDV;
     private com.toedter.calendar.JDateChooser dateThoiGian;
-    private javax.swing.ButtonGroup groupRdMaPx;
     private javax.swing.ButtonGroup groupRdTime;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -660,22 +546,16 @@ public class BangChamCong_sua extends javax.swing.JFrame{
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lblBCC;
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblTime;
-    private javax.swing.JRadioButton rdMaPX1;
-    private javax.swing.JRadioButton rdMaPX2;
     private javax.swing.JRadioButton rdTime1;
     private javax.swing.JRadioButton rdTime2;
     private javax.swing.JRadioButton rdTime3;
     private javax.swing.JTable tblPatternData;
     private javax.swing.JTable tblWillData;
     private javax.swing.JTextField txtBCC;
-    private javax.swing.JTextField txtNhapMaPX;
     private javax.swing.JTextField txtNhapThoiGian;
     // End of variables declaration//GEN-END:variables
     public void changePatternTable(String sTT, String maBcc, String tG, String maPX){

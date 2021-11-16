@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class SanPhamCongNhan {
     private String maCongNhan;
-    private Date ngayLamViec;
     private String maCongDoan;
     private int soLuongSanPham;
     private double donGia;
+    private Date ngayCong;
 
     public String getMaCongNhan() {
         return maCongNhan;
@@ -15,14 +15,6 @@ public class SanPhamCongNhan {
 
     public void setMaCongNhan(String maCongNhan) {
         this.maCongNhan = maCongNhan;
-    }
-
-    public Date getNgayLamViec() {
-        return ngayLamViec;
-    }
-
-    public void setNgayLamViec(Date ngayLamViec) {
-        this.ngayLamViec = ngayLamViec;
     }
 
     public String getMaCongDoan() {
@@ -49,20 +41,28 @@ public class SanPhamCongNhan {
         this.donGia = donGia;
     }
 
+    public Date getNgayCong() {
+        return ngayCong;
+    }
+
+    public void setNgayCong(Date ngayCong) {
+        this.ngayCong = ngayCong;
+    }
+
     public SanPhamCongNhan() {
     }
 
-    public SanPhamCongNhan(String maCongNhan, Date ngayLamViec, String maCongDoan, int soLuongSanPham, double donGia) {
+    public SanPhamCongNhan(String maCongNhan, String maCongDoan, int soLuongSanPham, double donGia, Date ngayCong) {
         this.maCongNhan = maCongNhan;
-        this.ngayLamViec = ngayLamViec;
         this.maCongDoan = maCongDoan;
         this.soLuongSanPham = soLuongSanPham;
         this.donGia = donGia;
+        this.ngayCong = ngayCong;
     }
 
     @Override
     public String toString() {
-        return "SanPhamCongNhan{" + "maCongNhan=" + maCongNhan + ", ngayLamViec=" + ngayLamViec + ", maCongDoan=" + maCongDoan + ", soLuongSanPham=" + soLuongSanPham + ", donGia=" + donGia + '}';
+        return "SanPhamCongNhan{" + "maCongNhan=" + maCongNhan + ", maCongDoan=" + maCongDoan + ", soLuongSanPham=" + soLuongSanPham + ", donGia=" + donGia + ", ngayCong=" + ngayCong + '}';
     }
     
 }

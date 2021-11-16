@@ -1,4 +1,4 @@
---drop database n11_qllsp;
+--drop database n11_qllsp;select * from bangchamcong
 create database n11_qllsp;
 go
 use n11_qllsp;
@@ -402,21 +402,20 @@ insert into sanphamcongnhan values ('CN7','CD1',26,12000,GETDATE());
 --GOGOGO
 create table sanphamnhanvien(-- chi tiết bản chấm công của nhân viên
 	maNhanVien varchar(255),
-    ngayLamViec date,
-    soGioTangCa varchar(255),
+    soGioTangCa int(255),
 	loaiTangCa smallint,
 	ngayCong Date PRIMARY KEY
 );
-insert into sanphamnhanvien values ('NV1','2021-11-12',0,2);
-insert into sanphamnhanvien values ('NV2','2021-11-13',3,1);
-insert into sanphamnhanvien values ('NV3','2021-11-11',5,3);
-insert into sanphamnhanvien values ('NV4','2021-11-10',4,3);
-insert into sanphamnhanvien values ('NV5','2021-11-09',0,2);
-insert into sanphamnhanvien values ('NV6','2021-11-08',2,3);
-insert into sanphamnhanvien values ('NV7','2021-11-07',0,1);
-insert into sanphamnhanvien values ('NV8','2021-11-14',3,2);
-insert into sanphamnhanvien values ('NV9','2021-11-05',0,3);
-insert into sanphamnhanvien values ('NV10',GETDATE(),4,1);
+insert into sanphamnhanvien values ('NV1',0,2,'2021-11-13');
+insert into sanphamnhanvien values ('NV2',3,1,'2021-11-12');
+insert into sanphamnhanvien values ('NV3',5,3,'2021-11-11');
+insert into sanphamnhanvien values ('NV4',4,3,'2021-11-10');
+insert into sanphamnhanvien values ('NV5',0,2,'2021-11-09');
+insert into sanphamnhanvien values ('NV6',2,3,'2021-11-08');
+insert into sanphamnhanvien values ('NV7',0,1,'2021-11-07');
+insert into sanphamnhanvien values ('NV8',3,2,'2021-11-06');
+insert into sanphamnhanvien values ('NV9',0,3,'2021-11-05');
+insert into sanphamnhanvien values ('NV10',4,1,'2021-11-04');
 --GOGOGO
 create table danhsachphieuluong(
 	 stt int,

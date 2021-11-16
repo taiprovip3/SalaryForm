@@ -48,8 +48,6 @@ public class BangChamCong_them extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         chkMaBcc = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
-        chkThoiGian = new javax.swing.JCheckBox();
-        jLabel4 = new javax.swing.JLabel();
         cbMaPx = new javax.swing.JComboBox<>();
         jSeparator2 = new javax.swing.JSeparator();
         btnDong = new javax.swing.JButton();
@@ -59,9 +57,11 @@ public class BangChamCong_them extends javax.swing.JFrame {
         lblLastBccID = new javax.swing.JLabel();
         lblTime = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
-        dateThoiGian = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        chkThoiGian = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
+        dateThoiGian = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SalaryForm > Bảng chấm công > thêm");
@@ -84,21 +84,15 @@ public class BangChamCong_them extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Nhập mã phân xưởng:");
-
-        chkThoiGian.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        chkThoiGian.setText("Bây giờ");
-        chkThoiGian.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkThoiGianActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Nhập thời gian:");
+        jLabel3.setText("Nhập mã đơn vị:");
 
         cbMaPx.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cbMaPx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PX1", "PX2", "PX3", "PX4", "PX5", "PX6", "PX7", "PX8", "PX9", "PX10", "PX11", "PX12", "PX13", "PX14", "PX15", "PX16", "PX17", "PX18", "PX19", "PX20", "PX21", "PX22", "PX23", "PX24", "PX25", "PX26", "PX27", "PX28", "PX29", "PX30" }));
+        cbMaPx.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PX1", "PX2", "PX3", "PX4", "PX5", "PX6", "PX7", "PX8", "PX9", "PX10", "PB1", "PB2", "PB3", "PB4", "PB5", "PB6", "PB7", "PB8", "PB9", "PB10" }));
+        cbMaPx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMaPxActionPerformed(evt);
+            }
+        });
 
         btnDong.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnDong.setText("Đóng");
@@ -138,25 +132,61 @@ public class BangChamCong_them extends javax.swing.JFrame {
         lblDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDate.setText("jLabel8");
 
-        dateThoiGian.setDateFormatString("dd/MM/yy hh:ss:mm");
-        dateThoiGian.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setText("Ví dụ: \"BCC23\"");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Nhập thời gian:");
+
+        chkThoiGian.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        chkThoiGian.setText("Bây giờ");
+        chkThoiGian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkThoiGianActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
         jLabel6.setText("Vui lòng chọn hoặc tick tự động nếu ko biết ghi định dạng");
 
+        dateThoiGian.setDateFormatString("dd/MM/yy hh:ss:mm");
+        dateThoiGian.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
             .addComponent(jSeparator2)
-            .addComponent(cbMaPx, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator1)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTime))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel4)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbMaPx, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtMaBcc, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dateThoiGian, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chkMaBcc)
+                    .addComponent(chkThoiGian, javax.swing.GroupLayout.Alignment.TRAILING)))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,32 +203,10 @@ public class BangChamCong_them extends javax.swing.JFrame {
                         .addComponent(lblLastBccID)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblDate)
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtMaBcc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkMaBcc))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTime))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(dateThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chkThoiGian))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +216,7 @@ public class BangChamCong_them extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(lblTime)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblDate))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -226,18 +234,18 @@ public class BangChamCong_them extends javax.swing.JFrame {
                     .addComponent(txtMaBcc, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chkMaBcc))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chkThoiGian)
-                    .addComponent(dateThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbMaPx, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dateThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkThoiGian))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(21, 21, 21)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,30 +281,21 @@ public class BangChamCong_them extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_chkMaBccActionPerformed
 
-    private void chkThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkThoiGianActionPerformed
-        if(chkThoiGian.isSelected())
-        {
-            Date datenow = new Date();
-            dateThoiGian.setDate(datenow);
-        }else{
-            
-        }
-    }//GEN-LAST:event_chkThoiGianActionPerformed
-
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String x1 = txtMaBcc.getText();
-        Date x2 = dateThoiGian.getDate();
-        String x3 = cbMaPx.getSelectedItem().toString();
+        String x2 = cbMaPx.getSelectedItem().toString();
+        Date x3 = dateThoiGian.getDate();
         String pattern = "(BCC)[0-9]{1,}$|(bcc)[0-9]{1,}$";
         if(!x1.matches(pattern) || x2 == null)
             JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập data đúng định dạng hoặc chọn tạo tự động!");
         else{
             int sttKeTiep = LaySoThuTuLienTiepBCC.getSoThuTu(lblLastBccID.getText());
             BangChamCong bcc = new BangChamCong(x1, x2, x3);
+            System.out.println(bcc);
             BangChamCongDao bccDao = new BangChamCongDao();
             lsBcc = bccDao.loadDataToList();
             if(lsBcc.contains(bcc))
-                JOptionPane.showMessageDialog(rootPane, "trùng mã");
+                JOptionPane.showMessageDialog(rootPane, "Trùng mã bảng chấm công");
             else
             {
                 try {
@@ -313,6 +312,15 @@ public class BangChamCong_them extends javax.swing.JFrame {
             }
         } 
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void cbMaPxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaPxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMaPxActionPerformed
+
+    private void chkThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkThoiGianActionPerformed
+        Date d = new Date();
+        dateThoiGian.setDate(d);
+    }//GEN-LAST:event_chkThoiGianActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
