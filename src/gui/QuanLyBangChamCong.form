@@ -25,12 +25,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="1" attributes="0">
-          <Component id="lblTitle" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Component id="lblTitle" pref="899" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
               <Component id="lblTacVu" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pRIGHT" min="-2" max="-2" attributes="0"/>
+              <Component id="pRIGHT" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,7 +100,7 @@
                   <Component id="btnIn" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnTaiLai" min="-2" pref="41" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="pSub" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -204,7 +203,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnTimKiem" max="32767" attributes="0"/>
-                  <Component id="btnThongKe" pref="191" max="32767" attributes="0"/>
+                  <Component id="btnThongKe" pref="250" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -268,7 +267,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="scrollData" alignment="1" pref="492" max="32767" attributes="0"/>
+              <Component id="scrollData" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -295,7 +294,7 @@
                     <Column editable="true" title="S&#x1ed1; th&#x1ef1; t&#x1ef1;" type="java.lang.Object"/>
                     <Column editable="true" title="M&#xe3; b&#x1ea3;ng ch&#x1ea5;m c&#xf4;ng" type="java.lang.Object"/>
                     <Column editable="true" title="Th&#x1edd;i gian n&#x1ed9;p b&#x1ea3;ng" type="java.lang.Object"/>
-                    <Column editable="true" title="M&#xe3; ph&#xe2;n x&#x1b0;&#x1edf;ng" type="java.lang.Object"/>
+                    <Column editable="true" title="M&#xe3; &#x111;&#x1a1;n v&#x1ecb;" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
