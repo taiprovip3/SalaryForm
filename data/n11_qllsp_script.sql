@@ -1,4 +1,6 @@
---drop database n11_qllsp	;select * from bangchamcong select * from taikhoan
+--drop database n11_qllsp	;select * from phieuluongnhanvien ;  delete from phieuluongnhanvien where maPhieuLuong = 'PLNVHC3'
+--select top 1 maPhieuLuong from phieuluongnhanvien where maPhieuLuong like 'PLNVHC%' order by stt desc
+-- delete from phieuluongnhanvien
 create database n11_qllsp;
 go
 use n11_qllsp;
@@ -332,7 +334,7 @@ create table phieuluongdonvi(
 	 tongTien money
 );
 --GOGOGO
-insert into phieuluongdonvi values (1,'PLDV1',10,0,'PB1',58000000,0,30,CURRENT_TIMESTAMP,58000000);
+insert into phieuluongdonvi values (1,'PLDV',10,0,'PB1',58000000,0,30,CURRENT_TIMESTAMP,58000000);
 --GOGOGO
 CREATE TABLE phieuluongnhanvien(
 	 stt int,
@@ -352,7 +354,7 @@ CREATE TABLE phieuluongnhanvien(
 	 ngayInPhieuLuong DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	 tongTien money
 );
-insert into phieuluongnhanvien values (1,'PL1',10,'NVHC1',N'Phạm Hưu Binh','PB1',25,2,2,5,210000,0,N'Ngày',10000,CURRENT_TIMESTAMP,6730769);
+insert into phieuluongnhanvien values (1,'PLNVHC',10,'NVHC1',N'Phạm Hưu Binh','PB1',25,2,2,5,210000,0,N'Ngày',10000,CURRENT_TIMESTAMP,6730769);
 --GOGOGO
 create table phieuluongcongnhan(
 	stt int,
@@ -374,7 +376,7 @@ create table phieuluongcongnhan(
     tongTien money
 );
 --GOGOGO
-insert into phieuluongcongnhan values (1,'PLCN1',10,'CN1',N'NGUYỄN VĂN A','PX1',GETDATE(),30,1,0,400,6000000,0,N'sản phẩm',0,CURRENT_TIMESTAMP,6000000);
+insert into phieuluongcongnhan values (1,'PLCN',10,'CN1',N'NGUYỄN VĂN A','PX1',GETDATE(),30,1,0,400,6000000,0,N'sản phẩm',0,CURRENT_TIMESTAMP,6000000);
 --GOGOGO
 create table sanphamcongnhan(--chi tiết bản chấm công của công nhân
 	maCongNhan varchar(255),
@@ -399,7 +401,7 @@ insert into sanphamcongnhan values ('CN2','CD2',22,18000,GETDATE());
 insert into sanphamcongnhan values ('CN5','CD3',21,14000,GETDATE());
 insert into sanphamcongnhan values ('CN5','CD4',23,13000,GETDATE());
 insert into sanphamcongnhan values ('CN7','CD5',26,12000,GETDATE());
---GOGOGOselect 
+--GOGOGO
 create table sanphamnhanvien(-- chi tiết bản chấm công của nhân viên
 	maNhanVien varchar(255),
     soGioTangCa int,
@@ -422,12 +424,17 @@ create table danhsachphieuluong(
 	 maPhieuLuong varchar(255) PRIMARY KEY,
 	 thangLuong smallint,
 	 luongDaTra money DEFAULT NULL,
-	 ngayLuu DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+	 ngayLuu DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	 loaiPhieuLuong varchar(255)
+	 --select * from danhsachphieuluong a1 join phieuluongnhanvien a2 on a1.loaiPhieuLuong = a2.maPhieuLuong
+);--select top 1 stt from danhsachphieuluong where maPhieuLuong like 'PLNVHC%' order by stt desc
+--delete from danhsachphieuluong    ; select * from danhsachphieuluong
+--GOGOGO drop table danhsachphieuluong
+insert into danhsachphieuluong values (1,'PL1',10,80000000,'2021-09-01 00:00:00.113','PLNVHC');
+insert into danhsachphieuluong values (2,'PL2',10,80000000,CURRENT_TIMESTAMP,'PLCN');
+insert into danhsachphieuluong values (3,'PL3',10,95000000,'2021-10-22 20:53:41.113','PLDV');
 --GOGOGO
-insert into danhsachphieuluong values (1,'PLNVHC1',10,80000000,CURRENT_TIMESTAMP);
-insert into danhsachphieuluong values (2,'PLCN1',10,95000000,'2021-10-22 20:53:41.113');
---GOGOGO
+select TOP 1 maPhieuLuong from danhsachphieuluong where maPhieuLuong like 'PLNVHC%' order by maPhieuLuong desc;
 create table taikhoan(
 	 username varchar(255),
 	 password varchar(255),
@@ -493,6 +500,6 @@ foreign key (maCongNhan) references congnhan(maCongNhan);
 --GOGOGO
 alter table danhsachphieuluong
 add
-	foreign key (maPhieuLuong) references phieuluongdonvi(maPhieuLuong),
-	foreign key (maPhieuLuong) references phieuluongnhanvien(maPhieuLuong),
-	foreign key (maPhieuLuong) references phieuluongcongnhan(maPhieuLuong);
+	foreign key (loaiPhieuLuong) references phieuluongdonvi(maPhieuLuong),
+	foreign key (loaiPhieuLuong) references phieuluongnhanvien(maPhieuLuong),
+	foreign key (loaiPhieuLuong) references phieuluongcongnhan(maPhieuLuong);
