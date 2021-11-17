@@ -698,6 +698,9 @@ public class MenuRoot extends javax.swing.JFrame {
 
     private void btnTimKiem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiem1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        BoLocTimKiem boLoc = new BoLocTimKiem();
+        boLoc.setVisible(true);
     }//GEN-LAST:event_btnTimKiem1ActionPerformed
 
     private void cbTuyChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTuyChonActionPerformed

@@ -1,7 +1,7 @@
 package model;
 
 public class PhanXuong {
-    private int maPhanXuong;
+    private String maPhanXuong;
     private String tenPhanXuong;
     private String tenNguoiDaiDien;
     private String maCongDoan;
@@ -11,10 +11,10 @@ public class PhanXuong {
      *
      * @getter va setter PhanXuong
      */
-    public int getMaPhanXuong() {
+    public String getMaPhanXuong() {
         return maPhanXuong;
     }
-    public void setMaPhanXuong(int maPhanXuong) {
+    public void setMaPhanXuong(String maPhanXuong) {
         this.maPhanXuong = maPhanXuong;
     }
     public String getTenPhanXuong() {
@@ -52,7 +52,7 @@ public class PhanXuong {
      */
     public PhanXuong() {
     }
-    public PhanXuong(int maPhanXuong, String tenPhanXuong, String tenNguoiDaiDien, String maCongDoan, String viTri, int soLuongCongNhan) {
+    public PhanXuong(String maPhanXuong, String tenPhanXuong, String tenNguoiDaiDien, String maCongDoan, String viTri, int soLuongCongNhan) {
         this.maPhanXuong = maPhanXuong;
         this.tenPhanXuong = tenPhanXuong;
         this.tenNguoiDaiDien = tenNguoiDaiDien;
@@ -67,32 +67,5 @@ public class PhanXuong {
     @Override
     public String toString() {
         return "PhanXuong{" + "maPhanXuong=" + maPhanXuong + ", tenPhanXuong=" + tenPhanXuong + ", tenNguoiDaiDien=" + tenNguoiDaiDien + ", maCongDoan=" + maCongDoan + ", viTri=" + viTri + ", soLuongCongNhan=" + soLuongCongNhan + '}';
-    }
-    /**
-     *
-     * @Hashcode equal PhanXuong
-     */
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.maPhanXuong;
-        return hash;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PhanXuong other = (PhanXuong) obj;
-        if (this.maPhanXuong != other.maPhanXuong) {
-            return false;
-        }
-        return true;
     }
 }

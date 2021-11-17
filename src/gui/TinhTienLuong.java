@@ -591,18 +591,22 @@ public class TinhTienLuong extends javax.swing.JFrame {
         lblMonth2.setText(lblMonth1.getText());
     }
 
-    void luuLaiPhieuLuong(String x) throws SQLException {
-        Connection conn = Database.getConnection();
-        PreparedStatement stmt = null;
-        if(x.equalsIgnoreCase("Phiếu lương Nhân Viên"))
-        {
-            String sql = "select * from danhsachphieuluong where thangLuong = ?";
-            stmt = conn.prepareCall(sql);
-            
-            for(int i = 0; i < tblPLNhanVien.getRowCount(); i++)
+    void luuLaiPhieuLuong(String x) {
+        try {
+            Connection conn = Database.getConnection();
+            PreparedStatement stmt = null;
+            if(x.equalsIgnoreCase("Phiếu lương Nhân Viên"))
             {
-                String sql2 = "select ";
+                String sql = "select * from danhsachphieuluong where thangLuong = ?";
+                stmt = conn.prepareCall(sql);
+
+                for(int i = 0; i < tblPLNhanVien.getRowCount(); i++)
+                {
+                    String sql2 = "select ";
+                }
             }
+        } catch (Exception e) {
+            
         }
     }
 
