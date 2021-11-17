@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTextArea;
 import model.PhanXuong;
 
 /*
@@ -22,6 +23,12 @@ import model.PhanXuong;
  * @author ADMIN
  */
 public class PhanXuongDao {
+    private JTextArea log;
+    
+    public void setLogText(JTextArea textArea) {
+        this.log = textArea;
+    }
+    
     public List<PhanXuong> timKiemPhanXuong(String columns, int limit, String tuKhoa) {
         List<PhanXuong> list = new ArrayList<>();
         Connection conn = null;
@@ -30,7 +37,7 @@ public class PhanXuongDao {
             conn = Database.getConnection();
             StringBuilder query = new StringBuilder("SELECT ");
             if (limit != 0) {
-                query.append("TOP " + limit + " * ");
+                query.append("TOP ").append(limit).append(" * ");
             } else {
                 query.append("* ");
             }
@@ -47,6 +54,7 @@ public class PhanXuongDao {
             }
             query.append("ORDER BY stt ASC");
             stmt = conn.prepareCall(query.toString());
+            log.setText(query.toString());
             
             int index = 1;
             tuKhoa = tuKhoa.replace("%", "\\%").replace("_", "\\_");
@@ -67,6 +75,7 @@ public class PhanXuongDao {
             }
         } catch (Exception e) {
             Logger.getLogger(PhanXuongDao.class.getName()).log(Level.SEVERE, null, e);
+            log.setText(e.toString());
         } finally {
             try {
                 conn.close();

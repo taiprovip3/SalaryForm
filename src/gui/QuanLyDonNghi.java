@@ -4,6 +4,14 @@
  */
 package gui;
 
+import dao.DonXinNghiDao;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.BangChamCong;
+import model.DonXinNghi;
 import util.HienThoiGian;
 
 /**
@@ -11,6 +19,12 @@ import util.HienThoiGian;
  * @author taiproduaxe
  */
 public class QuanLyDonNghi extends javax.swing.JFrame {
+    private DonXinNghi donXinNghi;
+    private int stt;
+    
+    public JTable getJTable1() {
+        return this.jTable1;
+    }
 
     /**
      * Creates new form QuanLyDonNghi
@@ -21,6 +35,26 @@ public class QuanLyDonNghi extends javax.swing.JFrame {
         htg.showDate();
         htg.showTime();
         setExtendedState(MAXIMIZED_BOTH);
+    }
+    
+    public void fillData(List<DonXinNghi> list) {
+        int i = 0;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (DonXinNghi bcc : list) {
+            Object[] obj = {
+                i + 1,
+                bcc.getMaDonNghi(),
+                bcc.getMaNhanVien(),
+                bcc.getTenNhanVien(),
+                !bcc.isLoaiNhanVien() ? "Nhân viên" : "Công nhân",
+                bcc.getLyDo(),
+                bcc.getNgayNghi(),
+                bcc.getSoNgayXinNghi(),
+                bcc.isLoaiNghi() ? "Có phép" : "Không phép"
+            };
+            model.insertRow(i++, obj);
+        }
+        this.setVisible(true);
     }
 
     /**
@@ -55,20 +89,45 @@ public class QuanLyDonNghi extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Sửa đơn chọn");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("Thêm đơn nghỉ mới");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton5.setText("Xóa đơn chọn");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tính năng khác:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton7.setText("Bộ lọc Thống kê");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton8.setText("Quản lý Tìm kiếm");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,17 +218,20 @@ public class QuanLyDonNghi extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ ĐƠN NGHỈ");
 
-        jButton1.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\user-icon.png")); // NOI18N
-
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Số thứ tự", "Mã đơn nghỉ", "Mã nhân viên", "Tên nhân viên", "Loại nhân viên", "Lý do nghỉ", "Ngày nghỉ"
+                "Số thứ tự", "Mã đơn nghỉ", "Mã nhân viên", "Tên nhân viên", "Loại nhân viên", "Lý do nghỉ", "Ngày nghỉ", "Số ngày xin nghỉ", "Loại nghỉ"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -181,11 +243,13 @@ public class QuanLyDonNghi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,6 +265,89 @@ public class QuanLyDonNghi extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        QuanLyDonNghi_them qldn = new QuanLyDonNghi_them();
+        qldn.setQLDN(this);
+        qldn.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (donXinNghi == null) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng lựa chọn một đơn xin nghỉ!");
+            return;
+        }
+        QuanLyDonNghi_sua qldn = new QuanLyDonNghi_sua();
+        qldn.setQLDN(this);
+        qldn.viewDXN(donXinNghi, stt);
+        qldn.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = jTable1.rowAtPoint(evt.getPoint());
+        int col = 0;
+        if (row >= 0) {
+            this.stt = (int) jTable1.getValueAt(row, col++);
+            String maDN = (String) jTable1.getValueAt(row, col++);
+            String maNV = (String) jTable1.getValueAt(row, col++);
+            String tenNV = (String) jTable1.getValueAt(row, col++);
+            String loai = (String) jTable1.getValueAt(row, col++);
+            boolean loaiNV;
+            if ("Nhân viên".equalsIgnoreCase(loai)) {
+                loaiNV = false;
+            } else {
+                loaiNV = true;
+            }
+            String lido = (String) jTable1.getValueAt(row, col++);
+            Date ngayNghi = (Date) jTable1.getValueAt(row, col++);
+            int soNgayXinNghi = (int) jTable1.getValueAt(row, col++);
+            String loai2 = (String) jTable1.getValueAt(row, col++);
+            boolean loaiNghi;
+            if ("Có phép".equalsIgnoreCase(loai2)) {
+                loaiNghi = true;
+            } else {
+                loaiNghi = false;
+            }
+            donXinNghi = new DonXinNghi(maDN, maNV, tenNV, loaiNV, lido, ngayNghi, soNgayXinNghi, loaiNghi);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        int input = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn xóa đơn xin nghỉ này không?");
+        if (input == 0) {
+            DonXinNghiDao dxnDao = new DonXinNghiDao();
+            boolean result = dxnDao.delete(this.stt);
+            if (result == true) {
+                JOptionPane.showMessageDialog(rootPane, "Xóa đơn nghỉ thành công!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Xóa đơn nghỉ thất bại!");
+            }
+            DonXinNghiDao donXinNghiDao = new DonXinNghiDao();
+            List<DonXinNghi> donXinNghiList = donXinNghiDao.loadDanhSachDonXinNghiFromDatabase();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            fillData(donXinNghiList);
+        }
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        BoLocTimKiem boLocTimKiem = new BoLocTimKiem();
+        boLocTimKiem.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        BoLocThongKe boLocThongKe = new BoLocThongKe();
+        boLocThongKe.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

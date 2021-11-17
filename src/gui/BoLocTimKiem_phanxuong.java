@@ -31,10 +31,6 @@ public class BoLocTimKiem_phanxuong extends javax.swing.JFrame {
     }
    
     public void fillData(List<PhanXuong> list) {
-        
-        
-//        String[] columnNames = {"Mã phân xưởng", "Tên phân xưởng", "Tên người đại diện", "Mã công đoàn", "Vị trí", "Số lượng côg nhân"};
-//        Object[][] listObj = new Object[list.size()][6];
         int i = 0;
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         for (PhanXuong px : list) {

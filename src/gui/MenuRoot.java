@@ -5,6 +5,7 @@
 package gui;
 
 import connectDB.Database;
+import dao.DonXinNghiDao;
 import model.BangChamCong;
 import util.HienThoiGian;
 import util.LayThoiGianHoatDong;
@@ -16,9 +17,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
+import model.DonXinNghi;
 public class MenuRoot extends javax.swing.JFrame {
     Connection conn;
     public MenuRoot() throws SQLException {
@@ -53,6 +56,8 @@ public class MenuRoot extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        btnTroGiup = new javax.swing.JButton();
         pRIGHT = new javax.swing.JPanel();
         cbTuyChon = new javax.swing.JComboBox<>();
         Sep = new javax.swing.JSeparator();
@@ -206,26 +211,25 @@ public class MenuRoot extends javax.swing.JFrame {
 
         jButton10.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\setting-icon.png")); // NOI18N
 
+        jButton11.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\help-icon.png")); // NOI18N
+
+        btnTroGiup.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnTroGiup.setText("Trợ giúp");
+        btnTroGiup.setActionCommand("⚙ Cài đặt nâng cao");
+        btnTroGiup.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnTroGiup.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnTroGiup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTroGiupActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pLEFTLayout = new javax.swing.GroupLayout(pLEFT);
         pLEFT.setLayout(pLEFTLayout);
         pLEFTLayout.setHorizontalGroup(
             pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pLEFTLayout.createSequentialGroup()
                 .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pLEFTLayout.createSequentialGroup()
-                        .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pLEFTLayout.createSequentialGroup()
-                                    .addGap(2, 2, 2)
-                                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCaiDat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnTinhTienLuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnTimKiem1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                            .addComponent(btnLienHe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(pLEFTLayout.createSequentialGroup()
                         .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +246,23 @@ public class MenuRoot extends javax.swing.JFrame {
                             .addComponent(btnDonNghi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnBCC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnScript, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnScript, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pLEFTLayout.createSequentialGroup()
+                        .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pLEFTLayout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnTroGiup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCaiDat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTinhTienLuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTimKiem1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                            .addComponent(btnLienHe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pLEFTLayout.setVerticalGroup(
@@ -308,7 +328,13 @@ public class MenuRoot extends javax.swing.JFrame {
                     .addGroup(pLEFTLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCaiDat, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pLEFTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pLEFTLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTroGiup, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pRIGHT.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Xin chào, user NQLL (logged):", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
@@ -636,9 +662,11 @@ public class MenuRoot extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnDonNghiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDonNghiActionPerformed
-//        QuanLyDonNghiGUI qldnPage = new QuanLyDonNghiGUI();
-//        this.dispose();
-//        qldnPage.show();
+        DonXinNghiDao donXinNghiDao = new DonXinNghiDao();
+        List<DonXinNghi> donXinNghiList = donXinNghiDao.loadDanhSachDonXinNghiFromDatabase();
+        QuanLyDonNghi qlDonNghi = new QuanLyDonNghi();
+        qlDonNghi.fillData(donXinNghiList);
+        qlDonNghi.setVisible(true);
     }//GEN-LAST:event_btnDonNghiActionPerformed
 
     private void btnCaiDatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaiDatActionPerformed
@@ -728,6 +756,12 @@ public class MenuRoot extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbTuyChonActionPerformed
 
+    private void btnTroGiupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTroGiupActionPerformed
+        // TODO add your handling code here:
+        TroGiup troGiup = new TroGiup();
+        troGiup.setVisible(true);
+    }//GEN-LAST:event_btnTroGiupActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -780,9 +814,11 @@ public class MenuRoot extends javax.swing.JFrame {
     private javax.swing.JButton btnThongKe;
     private javax.swing.JButton btnTimKiem1;
     private javax.swing.JButton btnTinhTienLuong;
+    private javax.swing.JButton btnTroGiup;
     private javax.swing.JComboBox<String> cbTuyChon;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

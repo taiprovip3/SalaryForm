@@ -4,8 +4,10 @@
  */
 package gui;
 
+import dao.BangChamCongDao;
 import dao.PhanXuongDao;
 import java.util.List;
+import model.BangChamCong;
 import model.PhanXuong;
 
 /**
@@ -257,10 +259,18 @@ public class BoLocTimKiem extends javax.swing.JFrame {
         String txtTuKhoa = jTextField1.getText();
         if ("Phân Xưởng".equalsIgnoreCase(type)) {
             PhanXuongDao phanXuongDao = new PhanXuongDao();
+            phanXuongDao.setLogText(jTextArea1);
             List<PhanXuong> list = phanXuongDao.timKiemPhanXuong(column, limit, txtTuKhoa);
             System.out.print(list.toString());
             BoLocTimKiem_phanxuong boLocTimKiem_phanxuong = new BoLocTimKiem_phanxuong();
             boLocTimKiem_phanxuong.fillData(list);
+        } else if ("Bảng Chấm Công".equalsIgnoreCase(type)) {
+            BangChamCongDao bangChamCongDao = new BangChamCongDao();
+            bangChamCongDao.setLogText(jTextArea1);
+            List<BangChamCong> list = bangChamCongDao.timKiem(column, txtTuKhoa, limit);
+            System.out.print(list.toString());
+            BoLocTimKiem_bcc boLocTimKiem_bcc = new BoLocTimKiem_bcc();
+            boLocTimKiem_bcc.fillData(list);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -284,16 +294,22 @@ public class BoLocTimKiem extends javax.swing.JFrame {
         if ("Theo mã".equalsIgnoreCase(condition)) {
             if ("Phân Xưởng".equalsIgnoreCase(type)) {
                 return "maPhanXuong";
+            } else if ("Bảng Chấm Công".equalsIgnoreCase(type)) {
+                return "maBangChamCong maDonVi";
             }
         } else if ("Theo tên".equalsIgnoreCase(condition)) {
             if ("Phân Xưởng".equalsIgnoreCase(type)) {
                 return "tenPhanXuong";
+            }  else if ("Bảng Chấm Công".equalsIgnoreCase(type)) {
+                return "";
             }
         } else if ("Theo số thứ tự".equalsIgnoreCase(condition)) {
             return "stt";
         } else if ("Theo text search".equalsIgnoreCase(condition)) {
             if ("Phân Xưởng".equalsIgnoreCase(type)) {
                 return "maPhanXuong tenPhanXuong";
+            } else {
+                return "maBangChamCong maDonVi ngayChamCong";
             }
         }
         return "";
