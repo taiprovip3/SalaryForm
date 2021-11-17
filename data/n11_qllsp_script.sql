@@ -323,7 +323,7 @@ insert into chitiethopdong values ('HD11','SP11',N'Áo pijama',9500,N'Chuẩn v�
 --GOGOGO
 create table phieuluongdonvi(
 	 stt int,
-	 maPhieuLuong varchar(255) PRIMARY KEY,
+	 maPhieuLuong varchar(255),
 	 thangLuong smallint,
 	 loaiDonVi smallint,--0 la phongban 1 la phanxuong
 	 maDonVi varchar(255) NOT NULL,
@@ -338,7 +338,7 @@ insert into phieuluongdonvi values (1,'PLDV',10,0,'PB1',58000000,0,30,CURRENT_TI
 --GOGOGO
 CREATE TABLE phieuluongnhanvien(
 	 stt int,
-	 maPhieuLuong varchar(255) PRIMARY KEY,
+	 maPhieuLuong varchar(255),
 	 thangLuong smallint,
 	 maNhanVien varchar(255) NOT NULL,
 	 tenNhanVien NVARCHAR(255),
@@ -358,7 +358,7 @@ insert into phieuluongnhanvien values (1,'PLNVHC',10,'NVHC1',N'Phạm Hưu Binh'
 --GOGOGO
 create table phieuluongcongnhan(
 	stt int,
-	maPhieuLuong varchar(255) PRIMARY KEY,
+	maPhieuLuong varchar(255),
 	thangLuong smallint,
 	maCongNhan varchar(255),
     hoTen NVARCHAR(255),
@@ -386,6 +386,7 @@ create table sanphamcongnhan(--chi tiết bản chấm công của công nhân
 	ngayCong date
 );
 --GOGOGO
+select * from sanphamcongnhan where MONTH(ngayCong)=11 and maCongNhan = 'CN1';
 insert into sanphamcongnhan values ('CN1','CD1',23,12000,GETDATE());
 insert into sanphamcongnhan values ('CN2','CD2',25,11000,GETDATE());
 insert into sanphamcongnhan values ('CN3','CD3',26,12000,GETDATE());
@@ -427,14 +428,14 @@ create table danhsachphieuluong(
 	 ngayLuu DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	 loaiPhieuLuong varchar(255)
 	 --select * from danhsachphieuluong a1 join phieuluongnhanvien a2 on a1.loaiPhieuLuong = a2.maPhieuLuong
-);--select top 1 stt from danhsachphieuluong where maPhieuLuong like 'PLNVHC%' order by stt desc
---delete from danhsachphieuluong    ; select * from danhsachphieuluong
---GOGOGO drop table danhsachphieuluong
+);--select top 1 stt from danhsachphieuluong where maPhieuLuong like 'PL%' order by stt desc
+--select top 1 stt from phieuluongnhanvien where maPhieuLuong like 'PLNVHC%' order by stt desc
+--
+--GOGOGO select * from phieuluongnhanvien
 insert into danhsachphieuluong values (1,'PL1',10,80000000,'2021-09-01 00:00:00.113','PLNVHC');
 insert into danhsachphieuluong values (2,'PL2',10,80000000,CURRENT_TIMESTAMP,'PLCN');
 insert into danhsachphieuluong values (3,'PL3',10,95000000,'2021-10-22 20:53:41.113','PLDV');
 --GOGOGO
-select TOP 1 maPhieuLuong from danhsachphieuluong where maPhieuLuong like 'PLNVHC%' order by maPhieuLuong desc;
 create table taikhoan(
 	 username varchar(255),
 	 password varchar(255),

@@ -5,13 +5,19 @@
 package gui;
 
 import connectDB.Database;
+import dao.CongNhanDao;
 import dao.DonXinNghiDao;
 import dao.NhanVienDao;
 import dao.PhieuLuongDao;
 import dao.PhieuLuongNhanVienDao;
 import dao.TinhTienLuongDao;
+import java.awt.HeadlessException;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import model.DonXinNghi;
@@ -42,6 +48,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.BangChamCong;
+import model.CongNhan;
 import model.DanhSachPhieuLuong;
 
 public class TinhTienLuong extends javax.swing.JFrame{
@@ -68,7 +75,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
         cbMonth = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnXoaRong = new javax.swing.JButton();
         btnLuu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPLCongNhan = new javax.swing.JTable();
@@ -76,11 +83,11 @@ public class TinhTienLuong extends javax.swing.JFrame{
         tblPLDonVi = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblPLNhanVien = new javax.swing.JTable();
-        jComboBox3 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         taDetail = new javax.swing.JTextArea();
         cbChonDoiTuongXuat = new javax.swing.JComboBox<>();
+        btnExport = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnTaiLai = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -161,11 +168,11 @@ public class TinhTienLuong extends javax.swing.JFrame{
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("In trực tiếp");
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton5.setText("Xóa rỗng");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnXoaRong.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnXoaRong.setText("Xóa rỗng");
+        btnXoaRong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnXoaRongActionPerformed(evt);
             }
         });
 
@@ -179,26 +186,30 @@ public class TinhTienLuong extends javax.swing.JFrame{
 
         tblPLCongNhan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "STT", "Mã PL", "Tháng lương", "Mã CN", "Họ tên", "Phân xưởng", "Số NC", "Nghỉ phép", "Không phép", "Tổng SP", "Tiền SP", "Phụ cấp", "ĐVCC", "Phí phát sinh", "Ngày in", "Tổng tiền"
+                "STT", "Mã PL", "Tháng lương", "Mã CN", "Họ tên", "Phân xưởng", "Ngày KC", "Số NC", "Nghỉ phép", "Không phép", "Tổng SP", "Tiền SP", "Phụ cấp", "ĐVCC", "Phí phát sinh", "Ngày in", "Tổng tiền"
             }
         ));
+        tblPLCongNhan.getTableHeader().setResizingAllowed(false);
+        tblPLCongNhan.getTableHeader().setReorderingAllowed(false);
         tblPLCongNhan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPLCongNhanMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblPLCongNhanMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblPLCongNhanMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(tblPLCongNhan);
 
         tblPLDonVi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Mã PL", "Tháng lương", "Loại ĐV", "Mã ĐV", "Lương trả", "Phụ cấp phát sinh", "SL nhân viên", "Ngày trả", "Tổng tiền"
@@ -209,9 +220,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
         tblPLNhanVien.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblPLNhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Mã PL", "Tháng lương", "Mã NV", "Tên NV", "Phòng ban", "Số ngày công", "Nghỉ Phép", "Ko phép", "Số giờ TC", "Tiền TC", "Phụ cấp", "ĐVCC", "Chi phí phát sinh", "Ngày in PL", "Tổng tiền"
@@ -221,11 +230,11 @@ public class TinhTienLuong extends javax.swing.JFrame{
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPLNhanVienMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblPLNhanVienMousePressed(evt);
+            }
         });
         jScrollPane3.setViewportView(tblPLNhanVien);
-
-        jComboBox3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ghi xuống excel", "Ghi xuống .txt" }));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
@@ -248,6 +257,14 @@ public class TinhTienLuong extends javax.swing.JFrame{
         cbChonDoiTuongXuat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cbChonDoiTuongXuat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tính phiếu lương Phòng Ban", "Tính phiếu lương Phân Xưởng" }));
 
+        btnExport.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnExport.setText("Xuất ra tệp .txt");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -261,12 +278,12 @@ public class TinhTienLuong extends javax.swing.JFrame{
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addGap(299, 299, 299)
+                        .addComponent(btnExport)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnXoaRong, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(cbChonDoiTuongXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLuu))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -275,14 +292,13 @@ public class TinhTienLuong extends javax.swing.JFrame{
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton3)
-                        .addComponent(jComboBox3))
-                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5)
-                        .addComponent(cbChonDoiTuongXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnXoaRong)
+                        .addComponent(cbChonDoiTuongXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLuu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -489,8 +505,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(rootPane, "Bạn vừa chọn tháng T"+thangLuong+"<T"+thangHienTai+", data ouput sẽ có âm do ngày công (-)");
         SimpleDateFormat mdf = new SimpleDateFormat("dd/MM/yyyy");
         String chonThang = "31/"+thangLuong+"/2021";
-        if(doiTuong.equalsIgnoreCase("nhân viên hành chính"))
-        {
+        if(doiTuong.equalsIgnoreCase("nhân viên hành chính")){
             try {
                 Date ngayChamLuong = mdf.parse(chonThang);
                 List<NhanVien> lsnv = new ArrayList<>();
@@ -555,15 +570,66 @@ public class TinhTienLuong extends javax.swing.JFrame{
                 Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        if(doiTuong.equalsIgnoreCase("công nhân")){
+            try {
+                Date ngayChamLuong = mdf.parse(chonThang);
+                List<CongNhan> lscn = new ArrayList<>();//Tao list congnhan
+                CongNhanDao cnDao = new CongNhanDao();
+                lscn = cnDao.loadDanhSachCongNhanFromDatabase();//Load congnhan len LIst
+                List<DonXinNghi> lsdn = new ArrayList<>();
+                DonXinNghiDao dxnDao = new DonXinNghiDao();
+                lsdn = dxnDao.loadDanhSachDonXinNghiFromDatabase();//Load danh sach don nghi
+                CongNhan cn = new CongNhan();
+                tabModelCongNhan = (DefaultTableModel) tblPLCongNhan.getModel();
+                tabModelCongNhan.setRowCount(0);
+                Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement();
+                String sql = "select top 1 stt from phieuluongcongnhan where maPhieuLuong like 'PLCN%' order by stt desc";
+                ResultSet rs = stmt.executeQuery(sql);
+                rs.next();
+                int soTT = rs.getInt("stt");
+                for(int i=0; i<lscn.size(); i++)
+                {
+                    cn = lscn.get(i);
+                    soTT++;
+                    //Tinh so ngay cong
+                    int soNgayNghi = 0;
+                    String maCongNhan = cn.getMaCongNhan();
+                    for(int j=0; j<lsdn.size(); j++)
+                        if(lsdn.get(j).getMaNhanVien().equals(maCongNhan))
+                        {
+                            soNgayNghi += lsdn.get(j).getSoNgayXinNghi();
+                            break;
+                        }
+                    Date ngayKhoiCong = cn.getNgayKhoiCong();
+                    long diff = ngayChamLuong.getTime() - ngayKhoiCong.getTime();
+                    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                    int soNgayCong = (int) (days - soNgayNghi);
+                    System.out.println(soNgayCong);
+                    //Di tim tong so luong san pham
+                    String sqlTimTongSP = "select sum(soLuongSanPham) from sanphamcongnhan where MONTH(ngayCong)="+thangLuong+" and maCongNhan = '"+maCongNhan+"'";
+                    rs = stmt.executeQuery(sqlTimTongSP);
+                    rs.next();
+                    int tongSoLuongSP = rs.getInt(1);
+                    //Đi tim tong tien SP
+                    String sqlLayTongTienSP = "select sum(soLuongSanPham*donGia) from sanphamcongnhan where MONTH(ngayCong)="+thangLuong+" and maCongNhan = '"+maCongNhan+"'";
+                    rs = stmt.executeQuery(sqlLayTongTienSP);
+                    rs.next();
+                    BigDecimal tongTienSP = rs.getBigDecimal(1);
+                    System.out.println("Tongtien sp"+tongTienSP);
+                    tabModelCongNhan.addRow(new Object[]{   soTT, "PLCN", thangLuong, cn.getMaCongNhan(), cn.getTenCongNhan(), cn.getMaPhanXuong(), cn.getNgayKhoiCong(), String.valueOf(soNgayCong), 0, 0, tongSoLuongSP, tongTienSP, 0, "sản phẩm",0, ngayHienTai, tongTienSP  });
+                }//End với mỗi cn
+        }   catch (ParseException | SQLException ex) {
+                Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }//GEN-LAST:event_btnStartActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+    }
+    private void btnXoaRongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaRongActionPerformed
         cbEntity.setSelectedIndex(0);
         cbMonth.setSelectedIndex(0);
         tabModelNhanVien.setRowCount(0);
         taDetail.setText("");
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnXoaRongActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
@@ -592,42 +658,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void tblPLNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLNhanVienMouseClicked
-        int a = tblPLNhanVien.getSelectedRow();
-        if(a != -1)
-        {
-            String getContent = tblPLNhanVien.getValueAt(a, 0).toString();
-            if(!getContent.equals(""))
-            {
-                cbChonDoiTuongXuat.setSelectedIndex(0);
-                Locale localeVN = new Locale("vi", "VN");
-                NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
-                TinhTienLuongDao ttlDao = new TinhTienLuongDao();
-                taDetail.setText("");
-                taDetail.append("Số thứ tự: "+tblPLNhanVien.getValueAt(a, 0)+"\t\t\t\t\t\t");
-                taDetail.append("Loại phiếu lương: "+tblPLNhanVien.getValueAt(a, 1));
-                taDetail.append("\n");
-                taDetail.append("Tháng lương: "+tblPLNhanVien.getValueAt(a, 2)+"\t\t\t\t\t\t");
-                taDetail.append("Mã nhân viên: "+tblPLNhanVien.getValueAt(a, 3));
-                taDetail.append("\n");
-                taDetail.append("Tên nhân viên: "+tblPLNhanVien.getValueAt(a, 4)+"\t\t\t\t\t\t");
-                taDetail.append("Phòng ban: "+tblPLNhanVien.getValueAt(a, 5));
-                taDetail.append("\n");
-                taDetail.append("Số ngày nghỉ: "+tblPLNhanVien.getValueAt(a, 6)+"\t\t\t\t\t\t");
-                taDetail.append("Số ngày nghỉ có phép: "+tblPLNhanVien.getValueAt(a, 7));
-                taDetail.append("\n");
-                taDetail.append("Số ngày nghỉ không phép: "+tblPLNhanVien.getValueAt(a, 8)+"\t\t\t\t\t\t");
-                taDetail.append("Số giờ tăng ca: "+tblPLNhanVien.getValueAt(a, 9));
-                taDetail.append("\n");
-                taDetail.append("Tổng tiền tăng ca: "+nf.format(tblPLNhanVien.getValueAt(a, 10))+"\t\t\t\t\t\t");
-                taDetail.append("Phụ cấp: "+nf.format(tblPLNhanVien.getValueAt(a, 11)));
-                taDetail.append("\n");
-                taDetail.append("Đơn vị chấm công: "+tblPLNhanVien.getValueAt(a, 12)+"\t\t\t\t\t\t");
-                taDetail.append("Chi phí phát sinh: "+nf.format(tblPLNhanVien.getValueAt(a, 13)));
-                taDetail.append("\n");
-                taDetail.append("Ngày in phiếu lương: "+tblPLNhanVien.getValueAt(a, 14)+"\t\t\t\t\t\t");
-                taDetail.append("Tổng tiền nhận: "+nf.format(tblPLNhanVien.getValueAt(a, 15)));
-            }
-        }
+       
     }//GEN-LAST:event_tblPLNhanVienMouseClicked
 
     private void btnTaiLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaiLaiActionPerformed
@@ -650,7 +681,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
 
                     String tongTienTra = nf.format(tblDanhSachPL.getValueAt(dsplRow, 2));
 
-                    //Date ngayTraLuong = sdf.parse(tblDanhSachPL.getValueAt(dsplRow, 3).toString());
+                    //format ngayTraLuong khi dua len taDetails
                     DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
                     Date date = (Date)formatter.parse(tblDanhSachPL.getValueAt(dsplRow, 3).toString());
                     Calendar cal = Calendar.getInstance();
@@ -670,43 +701,94 @@ public class TinhTienLuong extends javax.swing.JFrame{
     }//GEN-LAST:event_tblDanhSachPLMouseClicked
 
     private void tblPLCongNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLCongNhanMouseClicked
-        int a = tblPLCongNhan.getSelectedRow();
+
+    }//GEN-LAST:event_tblPLCongNhanMouseClicked
+
+    private void tblPLNhanVienMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLNhanVienMousePressed
+            int a = tblPLNhanVien.getSelectedRow();
+            cbChonDoiTuongXuat.setSelectedIndex(0);
+            Locale localeVN = new Locale("vi", "VN");
+            NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
+            TinhTienLuongDao ttlDao = new TinhTienLuongDao();
+            taDetail.setText("");
+            taDetail.append("Số thứ tự: "+tblPLNhanVien.getValueAt(a, 0)+"\t\t\t\t\t\t");
+            taDetail.append("Loại phiếu lương: "+tblPLNhanVien.getValueAt(a, 1));
+            taDetail.append("\n");
+            taDetail.append("Tháng lương: "+tblPLNhanVien.getValueAt(a, 2)+"\t\t\t\t\t\t");
+            taDetail.append("Mã nhân viên: "+tblPLNhanVien.getValueAt(a, 3));
+            taDetail.append("\n");
+            taDetail.append("Tên nhân viên: "+tblPLNhanVien.getValueAt(a, 4)+"\t\t\t\t\t\t");
+            taDetail.append("Phòng ban: "+tblPLNhanVien.getValueAt(a, 5));
+            taDetail.append("\n");
+            taDetail.append("Số ngày nghỉ: "+tblPLNhanVien.getValueAt(a, 6)+"\t\t\t\t\t\t");
+            taDetail.append("Số ngày nghỉ có phép: "+tblPLNhanVien.getValueAt(a, 7));
+            taDetail.append("\n");
+            taDetail.append("Số ngày nghỉ không phép: "+tblPLNhanVien.getValueAt(a, 8)+"\t\t\t\t\t\t");
+            taDetail.append("Số giờ tăng ca: "+tblPLNhanVien.getValueAt(a, 9));
+            taDetail.append("\n");
+            taDetail.append("Tổng tiền tăng ca: "+nf.format(tblPLNhanVien.getValueAt(a, 10))+"\t\t\t\t\t\t");
+            taDetail.append("Phụ cấp: "+nf.format(tblPLNhanVien.getValueAt(a, 11)));
+            taDetail.append("\n");
+            taDetail.append("Đơn vị chấm công: "+tblPLNhanVien.getValueAt(a, 12)+"\t\t\t\t\t\t");
+            taDetail.append("Chi phí phát sinh: "+nf.format(tblPLNhanVien.getValueAt(a, 13)));
+            taDetail.append("\n");
+            taDetail.append("Ngày in phiếu lương: "+tblPLNhanVien.getValueAt(a, 14)+"\t\t\t\t\t\t");
+            taDetail.append("Tổng tiền nhận: "+nf.format(tblPLNhanVien.getValueAt(a, 15)));
+    }//GEN-LAST:event_tblPLNhanVienMousePressed
+
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        
+    }//GEN-LAST:event_btnExportActionPerformed
+        
+    private void tblPLCongNhanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLCongNhanMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblPLCongNhanMouseEntered
+
+    private void tblPLCongNhanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLCongNhanMousePressed
+        int a = tblPLNhanVien.getSelectedRow();
+        FileWriter fw,fw2;
+        BufferedWriter bw,bw2;
         if(a != -1)
         {
-            String getContent = tblPLCongNhan.getValueAt(a, 0).toString();
-            if(!getContent.equals(""))
+            if(tblPLNhanVien.getRowCount() > 0)
             {
-                cbChonDoiTuongXuat.setSelectedIndex(1);
-                Locale localeVN = new Locale("vi", "VN");
-                NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
-                TinhTienLuongDao ttlDao = new TinhTienLuongDao();
-                taDetail.setText("");
-                taDetail.append("Số thứ tự: "+tblPLNhanVien.getValueAt(a, 0)+"\t\t\t\t\t\t");
-                taDetail.append("Loại phiếu lương: "+tblPLNhanVien.getValueAt(a, 1));
-                taDetail.append("\n");
-                taDetail.append("Tháng lương: "+tblPLNhanVien.getValueAt(a, 2)+"\t\t\t\t\t\t");
-                taDetail.append("Mã nhân viên: "+tblPLNhanVien.getValueAt(a, 3));
-                taDetail.append("\n");
-                taDetail.append("Tên nhân viên: "+tblPLNhanVien.getValueAt(a, 4)+"\t\t\t\t\t\t");
-                taDetail.append("Phòng ban: "+tblPLNhanVien.getValueAt(a, 5));
-                taDetail.append("\n");
-                taDetail.append("Số ngày nghỉ: "+tblPLNhanVien.getValueAt(a, 6)+"\t\t\t\t\t\t");
-                taDetail.append("Số ngày nghỉ có phép: "+tblPLNhanVien.getValueAt(a, 7));
-                taDetail.append("\n");
-                taDetail.append("Số ngày nghỉ không phép: "+tblPLNhanVien.getValueAt(a, 8)+"\t\t\t\t\t\t");
-                taDetail.append("Số giờ tăng ca: "+tblPLNhanVien.getValueAt(a, 9));
-                taDetail.append("\n");
-                taDetail.append("Tổng tiền tăng ca: "+nf.format(tblPLNhanVien.getValueAt(a, 10))+"\t\t\t\t\t\t");
-                taDetail.append("Phụ cấp: "+nf.format(tblPLNhanVien.getValueAt(a, 11)));
-                taDetail.append("\n");
-                taDetail.append("Đơn vị chấm công: "+tblPLNhanVien.getValueAt(a, 12)+"\t\t\t\t\t\t");
-                taDetail.append("Chi phí phát sinh: "+nf.format(tblPLNhanVien.getValueAt(a, 13)));
-                taDetail.append("\n");
-                taDetail.append("Ngày in phiếu lương: "+tblPLNhanVien.getValueAt(a, 14)+"\t\t\t\t\t\t");
-                taDetail.append("Tổng tiền nhận: "+nf.format(tblPLNhanVien.getValueAt(a, 15)));
+                int cf = JOptionPane.showConfirmDialog(rootPane, "Đồng ý xuất phiếu lương NVHC ra tệp .txt ?");
+                if(cf == JOptionPane.YES_OPTION)
+                {
+                    try {
+                        File file = new File("data/PhieuLuongNhanVien.txt");
+                        if(!file.exists())
+                        file.createNewFile();
+                        fw = new FileWriter(file);
+                        bw = new BufferedWriter(fw);
+                        bw.write("STT\tLoaiPL\tT\tMaN.V\tTenN.V\tP.B\tSONC\tNghiPhep\tKoPhep\tGioTC\tTienTC\tPhuCap\tDonViChamCong\tPhiPS\tNgayInPL\tTONGTIEN");
+                        bw.write("\n------------------------------------------------------------------------------------------------------------------\n");
+                        for (int i = 0; i < tblPLNhanVien.getRowCount(); i++) {
+                            for (int j = 0; j < tblPLNhanVien.getColumnCount(); j++) {
+                                bw.write(tblPLNhanVien.getValueAt(i, j).toString()+"\t");
+                            }
+                            bw.write("\n------------------------------------------------------------------------------------------------------------------\n");
+                        }
+                        bw.close();
+                        fw.close();
+                        JOptionPane.showMessageDialog(this, "Xuất ra tệp PhieuLuongNhanVien.txt thành công!");
+                    } catch (HeadlessException | IOException e) {
+                    }
+                }
             }
-        }
-    }//GEN-LAST:event_tblPLCongNhanMouseClicked
+        }else{
+            int b = tblPLCongNhan.getSelectedRow();
+            if(tblPLCongNhan.getRowCount() > 0)
+            {
+                for (int i = 0; i < tblPLCongNhan.getRowCount(); i++) {
+                    for (int j = 0; j < tblPLCongNhan.getColumnCount(); j++) {
+                        System.out.println(tblPLCongNhan.getValueAt(i, j).toString());
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "Xuất ra tệp PhieuLuongCongNhan.txt thành công!");
+            }
+        }//end Else
+    }//GEN-LAST:event_tblPLCongNhanMousePressed
 
     /**
      * @param args the command line arguments
@@ -744,16 +826,16 @@ public class TinhTienLuong extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnTaiLai;
+    private javax.swing.JButton btnXoaRong;
     private javax.swing.JComboBox<String> cbChonDoiTuongXuat;
     private javax.swing.JComboBox<String> cbEntity;
     private javax.swing.JComboBox<String> cbMonth;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

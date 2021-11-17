@@ -160,6 +160,7 @@ public class ChonNguoiDung extends javax.swing.JFrame {
         btnUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnUser.setText("Người Quản Lý Lương");
         btnUser.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "User", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        btnUser.setFocusable(false);
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserActionPerformed(evt);
@@ -177,6 +178,7 @@ public class ChonNguoiDung extends javax.swing.JFrame {
         btnAdmin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAdmin.setText("Giám đốc");
         btnAdmin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Admin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        btnAdmin.setFocusable(false);
         btnAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdminActionPerformed(evt);

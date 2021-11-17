@@ -275,6 +275,7 @@ public class DangNhapUser extends javax.swing.JFrame {
             String getUser = lblUser.getText();
             String passWord = txtPassword.getText();
             try {
+                int saiMatKhau = 0;
                 Statement stmt = conn.createStatement();
                 String sql = "select password from taikhoan where username = '"+getUser+"'";
                 ResultSet rs = stmt.executeQuery(sql);
@@ -302,8 +303,16 @@ public class DangNhapUser extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, "Chưa làm");
                     }
                 }else{
-                    JOptionPane.showMessageDialog(rootPane, "Sai mật khẩu!");
-                    txtPassword.setText("");
+                    saiMatKhau++;
+                    if(saiMatKhau >= 5)
+                    {
+                        btnLogin.disable();
+                        JOptionPane.showMessageDialog(rootPane, "Bạn đã sai quá 5 lần -> block login");
+                        saiMatKhau=0;
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Sai mật khẩu!");
+                        txtPassword.setText("");
+                    }
                 }
             }
             catch (SQLException ex) {
