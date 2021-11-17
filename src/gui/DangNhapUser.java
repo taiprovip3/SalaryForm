@@ -29,11 +29,13 @@ import javax.swing.Timer;
  */
 public class DangNhapUser extends javax.swing.JFrame {
     Connection conn;
+    int saiMatKhau;
     public DangNhapUser() {
         conn = Database.getConnection();
         initComponents();
         showDate();
         showTime();
+        saiMatKhau = 0;
     }
 
     void showDate() {
@@ -275,7 +277,6 @@ public class DangNhapUser extends javax.swing.JFrame {
             String getUser = lblUser.getText();
             String passWord = txtPassword.getText();
             try {
-                int saiMatKhau = 0;
                 Statement stmt = conn.createStatement();
                 String sql = "select password from taikhoan where username = '"+getUser+"'";
                 ResultSet rs = stmt.executeQuery(sql);
@@ -306,6 +307,7 @@ public class DangNhapUser extends javax.swing.JFrame {
                     saiMatKhau++;
                     if(saiMatKhau >= 5)
                     {
+                        txtPassword.disable();
                         btnLogin.disable();
                         JOptionPane.showMessageDialog(rootPane, "Bạn đã sai quá 5 lần -> block login");
                         saiMatKhau=0;

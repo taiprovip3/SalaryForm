@@ -96,7 +96,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
         lblTime = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -215,6 +215,11 @@ public class TinhTienLuong extends javax.swing.JFrame{
                 "STT", "Mã PL", "Tháng lương", "Loại ĐV", "Mã ĐV", "Lương trả", "Phụ cấp phát sinh", "SL nhân viên", "Ngày trả", "Tổng tiền"
             }
         ));
+        tblPLDonVi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblPLDonViMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblPLDonVi);
 
         tblPLNhanVien.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -256,6 +261,11 @@ public class TinhTienLuong extends javax.swing.JFrame{
 
         cbChonDoiTuongXuat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cbChonDoiTuongXuat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tính phiếu lương Phòng Ban", "Tính phiếu lương Phân Xưởng" }));
+        cbChonDoiTuongXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbChonDoiTuongXuatActionPerformed(evt);
+            }
+        });
 
         btnExport.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnExport.setText("Xuất ra tệp .txt");
@@ -382,7 +392,12 @@ public class TinhTienLuong extends javax.swing.JFrame{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\user-icon.png")); // NOI18N
+        btnUser.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\user-icon.png")); // NOI18N
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -390,15 +405,12 @@ public class TinhTienLuong extends javax.swing.JFrame{
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnUser)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
@@ -790,34 +802,107 @@ public class TinhTienLuong extends javax.swing.JFrame{
         }//end Else
     }//GEN-LAST:event_tblPLCongNhanMousePressed
 
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        TuyChonIcon optionPage = new TuyChonIcon("ttlPage");
+        optionPage.show();
+        this.dispose();
+    }//GEN-LAST:event_btnUserActionPerformed
+
+    private void cbChonDoiTuongXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChonDoiTuongXuatActionPerformed
+        try {
+            Connection conn = Database.getConnection();
+            PreparedStatement prestmt = null;
+            Statement stmt = conn.createStatement();
+            String s = cbChonDoiTuongXuat.getSelectedItem().toString();
+            if(s.equalsIgnoreCase("Tính phiếu lương Phòng Ban")){
+                if(tblPLNhanVien.getRowCount() > 0){
+                    try {
+                        tableModelDonVi = (DefaultTableModel) tblPLDonVi.getModel();
+                        //Lấy STT
+                        String sqlStt = "select top 1 stt from phieuluongdonvi order by stt desc";
+                        ResultSet rs = stmt.executeQuery(sqlStt);
+                        rs.next();
+                        int stt = rs.getInt(1);
+                        //Lay thangLuong
+                        String thangLuong = cbMonth.getSelectedItem().toString();
+                        Double tongTienPB = 0.0;
+                        
+                        for (int i = 1; i <= 10; i++) {
+                            //Lay tongTienCacNVHC
+                            for (int j = 0; j < tblPLNhanVien.getRowCount(); j++) {
+                                if(tblPLNhanVien.getValueAt(j, 5).toString().equals("PB"+i))
+                                {
+                                    String getColTien = tblPLNhanVien.getValueAt(j, 15).toString();
+                                    tongTienPB += Double.parseDouble(getColTien);
+                                }
+                            }
+                            //Lay soLuongNv
+                            String sqlSLNV = "select soLuongNhanVien from phongban where maPhongBan = 'PB"+i+"'";
+                            rs = stmt.executeQuery(sqlSLNV);
+                            rs.next();
+                            int soLuongNhanVien = rs.getInt(1);
+                            //Lay ngayTraLuong
+                            Date d = new Date();
+                            tableModelDonVi.addRow(new Object[]{  ++stt,"PLDV", thangLuong, 0, "PB"+i, tongTienPB, 0, soLuongNhanVien, d, tongTienPB});
+                        }//Xong 10 phòng ban
+                        JOptionPane.showMessageDialog(rootPane, "Thành công");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }else{
+                if(s.equalsIgnoreCase("Tính phiếu lương Phân Xưởng")){
+                    if(tblPLCongNhan.getRowCount() > 0){
+                        
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_cbChonDoiTuongXuatActionPerformed
+
+    private void tblPLDonViMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLDonViMousePressed
+        try {
+            int a = tblPLDonVi.getSelectedRow();
+            Locale localeVN = new Locale("vi", "VN");
+            NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
+            //Format ngayTraLuong
+            DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+            Date date = (Date)formatter.parse(tblPLDonVi.getValueAt(a, 8).toString());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            String ngayTraLuong = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
+            //Format loaiDOnVi.
+            String loaiDonVi = "Phòng ban";
+            int getLoaiDonVi = Integer.parseInt(tblPLDonVi.getValueAt(a, 3).toString());
+            if(getLoaiDonVi == 1)
+                loaiDonVi = "Phân xưởng";
+            taDetail.setText("");
+            taDetail.append("Số thứ tự: "+tblPLDonVi.getValueAt(a, 0)+"\t\t\t\t\t\t");
+            taDetail.append("Loại phiếu lương: "+tblPLDonVi.getValueAt(a, 1));
+            taDetail.append("\n");
+            taDetail.append("Tháng lương: "+tblPLDonVi.getValueAt(a, 2)+"\t\t\t\t\t\t");
+            taDetail.append("Loại đơn vị "+loaiDonVi);
+            taDetail.append("\n");
+            taDetail.append("Mã đơn vị: "+tblPLDonVi.getValueAt(a, 4)+"\t\t\t\t\t\t");
+            taDetail.append("Lương phải trả: "+tblPLDonVi.getValueAt(a, 5));
+            taDetail.append("\n");
+            taDetail.append("Phụ cấp phát sinh: "+tblPLDonVi.getValueAt(a, 6)+"\t\t\t\t\t\t");
+            taDetail.append("Số lượng nhân viên: "+tblPLDonVi.getValueAt(a, 7));
+            taDetail.append("\n");
+            taDetail.append("Ngày trả lương: "+ngayTraLuong+"\t\t\t\t\t\t");
+            taDetail.append("Tổng tiền phải trả: "+nf.format(tblPLDonVi.getValueAt(a, 9)));
+        } catch (ParseException ex) {
+            Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tblPLDonViMousePressed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TinhTienLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TinhTienLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TinhTienLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TinhTienLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TinhTienLuong().setVisible(true);
@@ -830,11 +915,11 @@ public class TinhTienLuong extends javax.swing.JFrame{
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnTaiLai;
+    private javax.swing.JButton btnUser;
     private javax.swing.JButton btnXoaRong;
     private javax.swing.JComboBox<String> cbChonDoiTuongXuat;
     private javax.swing.JComboBox<String> cbEntity;
     private javax.swing.JComboBox<String> cbMonth;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

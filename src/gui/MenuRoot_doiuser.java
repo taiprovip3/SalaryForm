@@ -4,6 +4,11 @@
  */
 package gui;
 
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author taiproduaxe
@@ -17,6 +22,7 @@ public class MenuRoot_doiuser extends javax.swing.JFrame {
         initComponents();
         pack();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -50,6 +56,11 @@ public class MenuRoot_doiuser extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton1.setText("NHẤP CHUYỂN");
         jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -92,8 +103,26 @@ public class MenuRoot_doiuser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
-        this.dispose();
+        try {
+            this.dispose();
+            MenuRoot menuPage = new MenuRoot();
+            menuPage.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuRoot_doiuser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDongActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            ChonNguoiDung usersPage = new ChonNguoiDung();
+            this.dispose();
+            usersPage.show();
+        } catch (UnknownHostException | SQLException ex) {
+            Logger.getLogger(MenuRoot_doiuser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

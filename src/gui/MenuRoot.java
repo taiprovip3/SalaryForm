@@ -730,6 +730,7 @@ public class MenuRoot extends javax.swing.JFrame {
         {
             MenuRoot_doiuser doiuserPage = new MenuRoot_doiuser();
             doiuserPage.show();
+            this.dispose();
         }else{
             if(x==2)
             {

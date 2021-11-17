@@ -52,7 +52,7 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         taLogs = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
         lblDate = new javax.swing.JLabel();
         lblTime = new javax.swing.JLabel();
         btnXoaLog = new javax.swing.JButton();
@@ -238,7 +238,12 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
             .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\user-icon.png")); // NOI18N
+        btnUser.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\user-icon.png")); // NOI18N
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
 
         lblDate.setText("jLabel2");
 
@@ -259,7 +264,7 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,7 +287,7 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
                     .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblTacVu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -397,6 +402,12 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
         taLogs.setText("");
     }//GEN-LAST:event_btnXoaLogActionPerformed
 
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        TuyChonIcon optionPage = new TuyChonIcon("qlBccPage");
+        optionPage.show();
+        this.dispose();
+    }//GEN-LAST:event_btnUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -440,29 +451,11 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThongKe;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JButton btnUser;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaLog;
-    private javax.swing.JPanel cLOG;
-    private javax.swing.JPanel cLOG1;
-    private javax.swing.JPanel cLOG2;
-    private javax.swing.JPanel cLOG3;
-    private javax.swing.JPanel cLOG4;
-    private javax.swing.JPanel cLOG5;
-    private javax.swing.JPanel cLOG6;
-    private javax.swing.JPanel cLOG7;
-    private javax.swing.JPanel cLOG8;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lblDate;
     private javax.swing.JPanel lblTacVu;
     private javax.swing.JLabel lblTime;
@@ -470,15 +463,6 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
     private javax.swing.JPanel pRIGHT;
     private javax.swing.JPanel pSub;
     private javax.swing.JScrollPane scrollData;
-    private javax.swing.JTextArea taLog;
-    private javax.swing.JTextArea taLog1;
-    private javax.swing.JTextArea taLog2;
-    private javax.swing.JTextArea taLog3;
-    private javax.swing.JTextArea taLog4;
-    private javax.swing.JTextArea taLog5;
-    private javax.swing.JTextArea taLog6;
-    private javax.swing.JTextArea taLog7;
-    private javax.swing.JTextArea taLog8;
     private javax.swing.JTextArea taLogs;
     private javax.swing.JTable tblData;
     // End of variables declaration//GEN-END:variables

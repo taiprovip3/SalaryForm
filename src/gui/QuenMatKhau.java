@@ -4,6 +4,14 @@
  */
 package gui;
 
+import connectDB.Database;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author taiproduaxe
@@ -15,7 +23,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
      */
     public QuenMatKhau() {
         initComponents();
-        
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -27,6 +35,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rdGroupUser = new javax.swing.ButtonGroup();
         pTOP = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pCENTER = new javax.swing.JPanel();
@@ -36,15 +45,15 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         pBOTTOM = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtEx = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdUser = new javax.swing.JRadioButton();
+        rdAdmin = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -72,15 +81,20 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("(!) Chú ý:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Vì đây là ứng dụng cục bộ nên việc lấy lại / reset mật khẩu bằng email hay SĐT bị");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("vô hiệu hóa. Nếu bạn là User bị mất / quên password hãy liên hệ Administrator trực");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("tiếp để lấy \"Exception Key\".");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("\"Exception Key có định dạng: XXXXX-YYYYY-ZZZZZ\"");
 
         javax.swing.GroupLayout pCENTERLayout = new javax.swing.GroupLayout(pCENTER);
@@ -111,36 +125,53 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txtEx.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Tên đăng nhập");
 
-        jRadioButton1.setText("User");
+        rdGroupUser.add(rdUser);
+        rdUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rdUser.setText("NQLL");
 
-        jRadioButton2.setText("Admin");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        rdGroupUser.add(rdAdmin);
+        rdAdmin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        rdAdmin.setText("GiamDoc");
+        rdAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rdAdminActionPerformed(evt);
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Nhập khóa ngoại lệ:");
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Mật khẩu mới:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        btnXacNhan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnXacNhan.setText("Xác nhận");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                btnXacNhanActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Xác nhận");
-
+        btnBack.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnBack.setText("Quay lại");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
+            }
+        });
+
+        txtPassword.setText("jPasswordField1");
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusGained(evt);
             }
         });
 
@@ -149,21 +180,22 @@ public class QuenMatKhau extends javax.swing.JFrame {
         pBOTTOMLayout.setHorizontalGroup(
             pBOTTOMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pBOTTOMLayout.createSequentialGroup()
-                .addGroup(pBOTTOMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6)
-                    .addGroup(pBOTTOMLayout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pBOTTOMLayout.createSequentialGroup()
+                .addGroup(pBOTTOMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtPassword)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pBOTTOMLayout.createSequentialGroup()
+                        .addComponent(rdUser)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2))
-                    .addComponent(jTextField1)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField2)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pBOTTOMLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 35, Short.MAX_VALUE))
+                        .addComponent(rdAdmin))
+                    .addComponent(txtEx, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pBOTTOMLayout.setVerticalGroup(
             pBOTTOMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,23 +204,25 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pBOTTOMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rdUser)
+                    .addComponent(rdAdmin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addGap(1, 1, 1)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pBOTTOMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pBOTTOMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXacNhan)
+                    .addComponent(btnBack))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jList1.setBorder(javax.swing.BorderFactory.createTitledBorder("Exception Key"));
+        jList1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exception Key", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
+        jList1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "- Nếu là User thì chỉ cần nhập: YYYYY-ZZZZZ của khóa.", "- Nếu là Admin thì nhập toàn bộ: XXXXX-YYYYY-ZZZZZ của khóa.", "Với: ", "       X", "       Y", "       Z", "là các chữ số từ 0 - 9. Ví dụ: 12345-67897-65432" };
             public int getSize() { return strings.length; }
@@ -201,16 +235,12 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -233,25 +263,80 @@ public class QuenMatKhau extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pBOTTOM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 14, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void rdAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdAdminActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_rdAdminActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         DangNhapUser loginPage = new DangNhapUser();
         this.dispose();
         loginPage.show();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        // TODO add your handling code here:
+        String signUser = null;
+        if(rdUser.isSelected());
+            signUser = "user";
+        if(rdAdmin.isSelected())
+            signUser = "admin";
+        String getExKey = txtEx.getText();
+        String getPass = txtPassword.getText();
+        if(!getExKey.equals(" ") && !getPass.equals(" ") && rdUser != null)
+        {
+            
+                if(signUser == "user"){
+                    if(getExKey.equals("12345-67890-12345"))
+                    {
+                        try {
+                        String sql = "update taikhoan set password = ? where username = 'nqll'";
+                        Connection conn = Database.getConnection();
+                        PreparedStatement stmt = conn.prepareCall(sql);
+                        stmt.setString(1, getPass);
+                        stmt.execute();
+                        JOptionPane.showMessageDialog(rootPane, "Đổi mật khẩu mới thành công");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(QuenMatKhau.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(rootPane, "Thay đổi thất bại đã xảy ra lỗi ko xác định!");
+                        }
+                    }else
+                        JOptionPane.showMessageDialog(rootPane, "Khóa ngoại lệ user NQLL không chính xác!");
+                }
+                if(signUser == "admin"){
+                    if(getExKey.equals("12345-67891-23456"))
+                    {
+                        try {
+                        String sql = "update taikhoan set password = ? where username = 'giamdoc'";
+                        Connection conn = Database.getConnection();
+                        PreparedStatement stmt = conn.prepareCall(sql);
+                        stmt.setString(1, getPass);
+                        stmt.execute();
+                        JOptionPane.showMessageDialog(rootPane, "Đổi mật khẩu mới thành công");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(QuenMatKhau.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(rootPane, "Thay đổi thất bại đã xảy ra lỗi ko xác định!");
+                        }
+                    }else
+                        JOptionPane.showMessageDialog(rootPane, "Khóa ngoại lệ user GIAMDOC không chính xác!");
+                }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng điền & chọn đủ dữ liệu!");
+        }
+        
+    }//GEN-LAST:event_btnXacNhanActionPerformed
+
+    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
+        // TODO add your handling code here:
+        txtPassword.setText("");
+    }//GEN-LAST:event_txtPasswordFocusGained
 
     /**
      * @param args the command line arguments
@@ -290,7 +375,7 @@ public class QuenMatKhau extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -302,13 +387,14 @@ public class QuenMatKhau extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel pBOTTOM;
     private javax.swing.JPanel pCENTER;
     private javax.swing.JPanel pTOP;
+    private javax.swing.JRadioButton rdAdmin;
+    private javax.swing.ButtonGroup rdGroupUser;
+    private javax.swing.JRadioButton rdUser;
+    private javax.swing.JTextField txtEx;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }
