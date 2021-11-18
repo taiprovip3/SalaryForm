@@ -5,6 +5,7 @@
 package gui;
 
 import connectDB.Database;
+import dao.DonXinNghiDao;
 import model.BangChamCong;
 import util.HienThoiGian;
 import util.LayThoiGianHoatDong;
@@ -16,9 +17,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
+import model.DonXinNghi;
 public class MenuRoot extends javax.swing.JFrame {
     Connection conn;
     public MenuRoot() throws SQLException {
@@ -659,9 +662,11 @@ public class MenuRoot extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnDonNghiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDonNghiActionPerformed
-//        QuanLyDonNghiGUI qldnPage = new QuanLyDonNghiGUI();
-//        this.dispose();
-//        qldnPage.show();
+        DonXinNghiDao donXinNghiDao = new DonXinNghiDao();
+        List<DonXinNghi> donXinNghiList = donXinNghiDao.loadDanhSachDonXinNghiFromDatabase();
+        QuanLyDonNghi qlDonNghi = new QuanLyDonNghi();
+        qlDonNghi.fillData(donXinNghiList);
+        qlDonNghi.setVisible(true);
     }//GEN-LAST:event_btnDonNghiActionPerformed
 
     private void btnCaiDatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaiDatActionPerformed
@@ -721,6 +726,9 @@ public class MenuRoot extends javax.swing.JFrame {
 
     private void btnTimKiem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiem1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        BoLocTimKiem boLoc = new BoLocTimKiem();
+        boLoc.setVisible(true);
     }//GEN-LAST:event_btnTimKiem1ActionPerformed
 
     private void cbTuyChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTuyChonActionPerformed
@@ -751,6 +759,8 @@ public class MenuRoot extends javax.swing.JFrame {
 
     private void btnTroGiupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTroGiupActionPerformed
         // TODO add your handling code here:
+        TroGiup troGiup = new TroGiup();
+        troGiup.setVisible(true);
     }//GEN-LAST:event_btnTroGiupActionPerformed
 
     /**

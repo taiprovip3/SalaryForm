@@ -4,8 +4,12 @@
  */
 package gui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import util.HeaderRenderer;
 import javax.swing.table.TableColumnModel;
+import model.BangChamCong;
+import model.PhanXuong;
 
 /**
  *
@@ -23,6 +27,19 @@ public class BoLocTimKiem_bcc extends javax.swing.JFrame {
         int tabSize = table.getColumnCount();
         for (int i = 0; i < tabSize; i++)
             columnModel.getColumn(i).setHeaderRenderer(header);
+    }
+    
+    public void fillData(List<BangChamCong> list) {
+        int i = 0;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        for (BangChamCong bcc : list) {
+            Object[] obj = new Object[3];
+            obj[0] = bcc.getMaBangChamCong();
+            obj[1] = bcc.getNgayChamCong();
+            obj[2] = bcc.getMaDonVi();
+            model.insertRow(i++, obj);
+        }
+        this.setVisible(true);
     }
 
     /**
@@ -61,6 +78,11 @@ public class BoLocTimKiem_bcc extends javax.swing.JFrame {
                 "Mã BCC", "Thời gian", "Mã PX"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chọn hàng để xem dữ liệu chi tiết:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
@@ -159,6 +181,21 @@ public class BoLocTimKiem_bcc extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        // TODO add your handling code here:
+        int row = table.rowAtPoint(evt.getPoint());
+        int col = 0;
+        if (row >= 0) {
+            String cell1 = (String) table.getValueAt(row, col++);
+            jTextField1.setText(cell1);
+            String cell2 = String.valueOf(table.getValueAt(row, col++));
+            cell2 = cell2 != null || cell2 != "null" ? cell2 : "";
+            jTextField2.setText(cell2);
+            String cell3 = (String) table.getValueAt(row, col++);
+            jTextField3.setText(cell3);
+        }
+    }//GEN-LAST:event_tableMouseClicked
 
     /**
      * @param args the command line arguments

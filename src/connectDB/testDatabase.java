@@ -37,9 +37,9 @@ public class testDatabase {
 //        } catch (SQLException ex) {
 //            Logger.getLogger(testDatabase.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-    String x="855555";
-    Double.parseDouble(x);
-        System.out.println(x);
+    int stt = 0;
+    
+        System.out.println(++stt);
         
 //        InetAddress IP=InetAddress.getLocalHost();
 //System.out.println("IP of my system is := "+IP.getHostAddress());

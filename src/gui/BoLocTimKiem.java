@@ -4,6 +4,12 @@
  */
 package gui;
 
+import dao.BangChamCongDao;
+import dao.PhanXuongDao;
+import java.util.List;
+import model.BangChamCong;
+import model.PhanXuong;
+
 /**
  *
  * @author taiproduaxe
@@ -56,10 +62,15 @@ public class BoLocTimKiem extends javax.swing.JFrame {
         jLabel5.setText("Chọn đối tượng:");
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rỗng", "Phân Xưởng", "Công Nhân", "Phòng Ban", "Nhân Viên", "Công Đoạn", "Sản Phẩm", "Gói Hàng", "Bảng Chấm Công", "Đơn Xin Nghỉ", "Hợp Đồng", "Phiếu Lương" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phân Xưởng", "Công Nhân", "Phòng Ban", "Nhân Viên", "Công Đoạn", "Sản Phẩm", "Gói Hàng", "Bảng Chấm Công", "Đơn Xin Nghỉ", "Hợp Đồng", "Phiếu Lương" }));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Tìm kiếm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Điều kiện:");
@@ -238,6 +249,72 @@ public class BoLocTimKiem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String type = (String) jComboBox1.getSelectedItem();
+        String condition = (String) jComboBox2.getSelectedItem();
+        String column = getColumn(condition, type);
+        String text = (String) jComboBox3.getSelectedItem();
+        int limit = getLimit(text);
+        String txtTuKhoa = jTextField1.getText();
+        if ("Phân Xưởng".equalsIgnoreCase(type)) {
+            PhanXuongDao phanXuongDao = new PhanXuongDao();
+            phanXuongDao.setLogText(jTextArea1);
+            List<PhanXuong> list = phanXuongDao.timKiemPhanXuong(column, limit, txtTuKhoa);
+            System.out.print(list.toString());
+            BoLocTimKiem_phanxuong boLocTimKiem_phanxuong = new BoLocTimKiem_phanxuong();
+            boLocTimKiem_phanxuong.fillData(list);
+        } else if ("Bảng Chấm Công".equalsIgnoreCase(type)) {
+            BangChamCongDao bangChamCongDao = new BangChamCongDao();
+            bangChamCongDao.setLogText(jTextArea1);
+            List<BangChamCong> list = bangChamCongDao.timKiem(column, txtTuKhoa, limit);
+            System.out.print(list.toString());
+            BoLocTimKiem_bcc boLocTimKiem_bcc = new BoLocTimKiem_bcc();
+            boLocTimKiem_bcc.fillData(list);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private int getLimit(String text) {
+        int limit = 0;
+        if ("Tất cả".equalsIgnoreCase(text)) {
+            return limit;
+        }
+        String[] split = text.split(" ");
+        if (split[0] != null && split[0] != "") {
+            limit = Integer.parseInt(split[0]);
+        }
+        return limit;
+    }
+    
+    private String getColumn(String condition, String type) {
+        // Theo mã
+        //Theo tên
+        //Theo số thứ tự
+        //Theo text search
+        if ("Theo mã".equalsIgnoreCase(condition)) {
+            if ("Phân Xưởng".equalsIgnoreCase(type)) {
+                return "maPhanXuong";
+            } else if ("Bảng Chấm Công".equalsIgnoreCase(type)) {
+                return "maBangChamCong maDonVi";
+            }
+        } else if ("Theo tên".equalsIgnoreCase(condition)) {
+            if ("Phân Xưởng".equalsIgnoreCase(type)) {
+                return "tenPhanXuong";
+            }  else if ("Bảng Chấm Công".equalsIgnoreCase(type)) {
+                return "";
+            }
+        } else if ("Theo số thứ tự".equalsIgnoreCase(condition)) {
+            return "stt";
+        } else if ("Theo text search".equalsIgnoreCase(condition)) {
+            if ("Phân Xưởng".equalsIgnoreCase(type)) {
+                return "maPhanXuong tenPhanXuong";
+            } else {
+                return "maBangChamCong maDonVi ngayChamCong";
+            }
+        }
+        return "";
+    }
+    
     /**
      * @param args the command line arguments
      */

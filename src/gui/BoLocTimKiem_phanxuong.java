@@ -4,8 +4,12 @@
  */
 package gui;
 
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import util.HeaderRenderer;
 import javax.swing.table.TableColumnModel;
+import model.PhanXuong;
 
 /**
  *
@@ -18,11 +22,29 @@ public class BoLocTimKiem_phanxuong extends javax.swing.JFrame {
      */
     public BoLocTimKiem_phanxuong() {
         initComponents();
+        
         HeaderRenderer header = new HeaderRenderer(table.getTableHeader().getDefaultRenderer());
         TableColumnModel columnModel = table.getColumnModel();
         int tabSize = table.getColumnCount();
         for (int i = 0; i < tabSize; i++)
             columnModel.getColumn(i).setHeaderRenderer(header);
+    }
+   
+    public void fillData(List<PhanXuong> list) {
+        int i = 0;
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        for (PhanXuong px : list) {
+            Object[] obj = new Object[6];
+            obj[0] = px.getMaPhanXuong();
+            obj[1] = px.getTenPhanXuong();
+            obj[2] = px.getTenNguoiDaiDien();
+            obj[3] = px.getMaCongDoan();
+            obj[4] = px.getViTri();
+            obj[5] = px.getSoLuongCongNhan();
+            model.insertRow(i++, obj);
+        }
+        this.setVisible(true);
+          
     }
 
     /**
@@ -68,6 +90,12 @@ public class BoLocTimKiem_phanxuong extends javax.swing.JFrame {
                 "Mã phân xưởng", "Tên phân xưởng", "Người đại diện", "Mã công đoạn", "Vị trí", "Số lượng công nhân"
             }
         ));
+        table.setRowHeight(30);
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -169,6 +197,11 @@ public class BoLocTimKiem_phanxuong extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Đóng");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("In");
@@ -177,19 +210,19 @@ public class BoLocTimKiem_phanxuong extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,6 +240,32 @@ public class BoLocTimKiem_phanxuong extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        int row = table.rowAtPoint(evt.getPoint());
+        int col = 0;
+        if (row >= 0) {
+            String cell1 = (String) table.getValueAt(row, col++);
+            jTextField1.setText(cell1);
+            String cell2 = (String) table.getValueAt(row, col++);
+            jTextField2.setText(cell2);
+            String cell3 = (String) table.getValueAt(row, col++);
+            jTextField3.setText(cell3);
+            String cell4 = (String) table.getValueAt(row, col++);
+            jTextField4.setText(cell4);
+            String cell5 = (String) table.getValueAt(row, col++);
+            jTextField6.setText(cell5);
+            String cell6 = String.valueOf(table.getValueAt(row, col++));
+            cell6 = (cell6 != "null" || cell6 != null) ? cell6 : "";
+            jTextField5.setText(cell6);
+            
+        }
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

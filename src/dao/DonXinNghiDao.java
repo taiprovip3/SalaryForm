@@ -8,6 +8,8 @@ import connectDB.Database;
 import model.DonXinNghi;
 import model.NhanVien;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,7 +31,7 @@ public class DonXinNghiDao {
             Connection conn = Database.getConnection();
             Statement stmt = conn.createStatement();
             
-            String sql = "select * from donxinnghi";
+            String sql = "select * from donxinnghi order by stt ASC";
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next())
             {
@@ -50,4 +52,106 @@ public class DonXinNghiDao {
         return lsdn;
     }
     
+    
+    public boolean insert(DonXinNghi donXinNghi) {
+        boolean result = true;
+        Connection conn = null;
+        PreparedStatement statement = null;
+        Statement s = null;
+        int stt = 1;
+        try {
+            conn = Database.getConnection();
+            String sql = "select max(stt) as stt from donxinnghi";
+            s = conn.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+            if (rs.next()) {
+                stt = rs.getInt("stt") + 1;
+            }
+            
+            String sql1 = "insert into donxinnghi values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            statement = conn.prepareCall(sql1);
+            statement.setInt(1, stt);
+            statement.setString(2, donXinNghi.getMaDonNghi());
+            statement.setString(3, donXinNghi.getMaNhanVien());
+            statement.setString(4, donXinNghi.getTenNhanVien());
+            statement.setBoolean(5, donXinNghi.isLoaiNhanVien());
+            statement.setString(6, donXinNghi.getLyDo());
+            Date ngayNghi = new Date(donXinNghi.getNgayNghi().getTime());
+            statement.setDate(7, ngayNghi);
+            statement.setInt(8, donXinNghi.getSoNgayXinNghi());
+            statement.setBoolean(9, donXinNghi.isLoaiNghi());
+            statement.execute();
+        } catch(Exception e) {
+            Logger.getLogger(DonXinNghiDao.class.getName()).log(Level.SEVERE, null, e);
+            result = false;
+        } finally {
+            try {
+                conn.close();
+                statement.close();
+                s.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DonXinNghiDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    public boolean update(DonXinNghi donXinNghi, int stt) {
+        boolean result = true;
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = Database.getConnection();
+            
+            String sql1 = "update donxinnghi set maDonNghi = ?, maNhanVien = ?, tenNhanVien = ?, loaiNhanVien = ?, lyDo = ?, ngayNghi = ?, soNgayXinNghi = ?, loaiNghi = ? WHERE stt = ?";
+            statement = conn.prepareCall(sql1);
+            statement.setString(1, donXinNghi.getMaDonNghi());
+            statement.setString(2, donXinNghi.getMaNhanVien());
+            statement.setString(3, donXinNghi.getTenNhanVien());
+            statement.setBoolean(4, donXinNghi.isLoaiNhanVien());
+            statement.setString(5, donXinNghi.getLyDo());
+            Date ngayNghi = new Date(donXinNghi.getNgayNghi().getTime());
+            statement.setDate(6, ngayNghi);
+            statement.setInt(7, donXinNghi.getSoNgayXinNghi());
+            statement.setBoolean(8, donXinNghi.isLoaiNghi());
+            statement.setInt(9, stt);
+            statement.execute();
+        } catch(Exception e) {
+            Logger.getLogger(DonXinNghiDao.class.getName()).log(Level.SEVERE, null, e);
+            result = false;
+        } finally {
+            try {
+                conn.close();
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DonXinNghiDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    public boolean delete(int stt) {
+        boolean result = true;
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = Database.getConnection();
+            
+            String sql1 = "delete from donxinnghi WHERE stt = ?";
+            statement = conn.prepareCall(sql1);
+            statement.setInt(1, stt);
+            statement.execute();
+        } catch(Exception e) {
+            Logger.getLogger(DonXinNghiDao.class.getName()).log(Level.SEVERE, null, e);
+            result = false;
+        } finally {
+            try {
+                conn.close();
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DonXinNghiDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
 }

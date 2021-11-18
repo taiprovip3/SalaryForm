@@ -4,12 +4,26 @@
  */
 package gui;
 
+import dao.DonXinNghiDao;
+import java.util.Date;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.DonXinNghi;
+
 /**
  *
  * @author taiproduaxe
  */
 public class QuanLyDonNghi_them extends javax.swing.JFrame {
-
+    private QuanLyDonNghi qldn;
+    
+    public void setQLDN(QuanLyDonNghi qldn) {
+        this.qldn = qldn;
+    }
+    
     /**
      * Creates new form QuanLyDonNghi_them
      */
@@ -216,12 +230,27 @@ public class QuanLyDonNghi_them extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("Xóa rỗng");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("Đóng");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton4.setText("Thêm");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setText("Chọn số ngày xin nghỉ:");
@@ -349,6 +378,66 @@ public class QuanLyDonNghi_them extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        String maDN = (String) jComboBox1.getSelectedItem();
+        String maNV = jRadioButton6.isEnabled() ? (String) jComboBox3.getSelectedItem() : "NV " + jTextField2.getText();
+        String tenNV = jTextField6.getText();
+        String loai = (String) jComboBox5.getSelectedItem();
+        boolean loaiNV;
+        if ("Nhân viên hành chính".equalsIgnoreCase(loai)) {
+            loaiNV = false;
+        } else {
+            loaiNV = true;
+        }
+        String lido = (String) jComboBox6.getSelectedItem() + jTextField3.getText();
+        Date ngayNghi = jDateChooser1.getDate();
+        int soNgayXinNghi = Integer.parseInt((String)jComboBox7.getSelectedItem());
+        boolean loaiNghi = jRadioButton3.isEnabled() ? true : false;
+        DonXinNghi donXinNghi = new DonXinNghi(maDN, maNV, tenNV, loaiNV, lido, ngayNghi, soNgayXinNghi, loaiNghi);
+        DonXinNghiDao donXinNghiDao = new DonXinNghiDao();
+        boolean result = donXinNghiDao.insert(donXinNghi);
+        if (result == true) {
+            JOptionPane.showMessageDialog(rootPane, "Thêm đơn nghỉ mới thành công!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Thêm đơn nghỉ mới thất bại!");
+        }
+        clearData();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        clearData();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        DonXinNghiDao donXinNghiDao = new DonXinNghiDao();
+        List<DonXinNghi> donXinNghiList = donXinNghiDao.loadDanhSachDonXinNghiFromDatabase();
+        JTable jtable = qldn.getJTable1();
+        DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+        model.setRowCount(0);
+        qldn.fillData(donXinNghiList);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void clearData() {
+        jComboBox1.setSelectedIndex(0);
+        jRadioButton6.setSelected(false);
+        jComboBox3.setSelectedIndex(0);
+        jTextField2.setText("");
+        jTextField6.setText("");
+        jComboBox5.setSelectedIndex(0);
+        jComboBox6.setSelectedIndex(0);
+        jTextField3.setText("");
+        jComboBox7.setSelectedIndex(0);
+        jRadioButton3.setSelected(false);
+        jRadioButton4.setSelected(false);
+        jRadioButton7.setSelected(false);
+        jRadioButton1.setSelected(false);
+        jRadioButton2.setSelected(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -423,4 +512,5 @@ public class QuanLyDonNghi_them extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
+
 }
