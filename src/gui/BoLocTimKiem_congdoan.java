@@ -4,7 +4,6 @@
  */
 package gui;
 
-import com.sun.xml.fastinfoset.alphabet.BuiltInRestrictedAlphabets;
 import util.HeaderRenderer;
 import javax.swing.table.TableColumnModel;
 

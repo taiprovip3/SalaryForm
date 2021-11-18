@@ -7,6 +7,8 @@ public class TuyChonIcon extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.source = source;
+        pack();
+        setLocationRelativeTo(null);
     }
 
     
@@ -107,8 +109,23 @@ public class TuyChonIcon extends javax.swing.JFrame {
             TinhTienLuong ttlPage = new TinhTienLuong();
             ttlPage.show();
             }
+            if(source.equalsIgnoreCase("qlDxn"))
+            {
+                QuanLyDonNghi qlDxnPage = new QuanLyDonNghi();
+                qlDxnPage.show();
+            }
+            if(source.equalsIgnoreCase("blTk"))
+            {
+                BoLocTimKiem blTkPage = new BoLocTimKiem();
+                blTkPage.show();
+            }
+            if(source.equalsIgnoreCase("blThongKe"))
+            {
+                BoLocThongKe blThongKePage = new BoLocThongKe();
+                blThongKePage.show();
+            }
         }      
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     public static void main(String args[]) {

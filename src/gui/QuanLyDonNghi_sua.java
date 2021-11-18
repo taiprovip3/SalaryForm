@@ -30,6 +30,8 @@ public class QuanLyDonNghi_sua extends javax.swing.JFrame {
      */
     public QuanLyDonNghi_sua() {
         initComponents();
+        pack();
+        setLocationRelativeTo(null);
     }
     
     public void viewDXN(DonXinNghi donXinNghi, int stt) {

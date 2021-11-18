@@ -193,25 +193,25 @@ public class MenuRoot extends javax.swing.JFrame {
         });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\bookandpen.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\bookandpen.png")); // NOI18N
 
-        jButton2.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\takeabreak.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\takeabreak.png")); // NOI18N
 
-        jButton4.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\sanPham-icon.png")); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\sanPham-icon.png")); // NOI18N
 
-        jButton5.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\import0icon.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\import0icon.png")); // NOI18N
 
-        jButton6.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\satistic.png")); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\satistic.png")); // NOI18N
 
-        jButton7.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\lookUp-icon.png")); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\lookUp-icon.png")); // NOI18N
 
-        jButton8.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\calculator-icon.png")); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\calculator-icon.png")); // NOI18N
 
-        jButton9.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\report-icon.png")); // NOI18N
+        jButton9.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\contact-icon.png")); // NOI18N
 
-        jButton10.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\setting-icon.png")); // NOI18N
+        jButton10.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\setting-icon.png")); // NOI18N
 
-        jButton11.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\help-icon.png")); // NOI18N
+        jButton11.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\help-icon.png")); // NOI18N
 
         btnTroGiup.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnTroGiup.setText("Trợ giúp");
@@ -491,7 +491,7 @@ public class MenuRoot extends javax.swing.JFrame {
                     .addComponent(lblDemo7)))
         );
 
-        btnMail.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\email-icon.png")); // NOI18N
+        btnMail.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\email-icon.png")); // NOI18N
         btnMail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMailActionPerformed(evt);
@@ -666,7 +666,8 @@ public class MenuRoot extends javax.swing.JFrame {
         List<DonXinNghi> donXinNghiList = donXinNghiDao.loadDanhSachDonXinNghiFromDatabase();
         QuanLyDonNghi qlDonNghi = new QuanLyDonNghi();
         qlDonNghi.fillData(donXinNghiList);
-        qlDonNghi.setVisible(true);
+        qlDonNghi.show(true);
+        dispose();
     }//GEN-LAST:event_btnDonNghiActionPerformed
 
     private void btnCaiDatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaiDatActionPerformed
@@ -676,9 +677,9 @@ public class MenuRoot extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCaiDatActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
-//        QuanLyThongKeGUI thongKePage = new QuanLyThongKeGUI();
-//        this.dispose();
-//        thongKePage.show();
+        BoLocThongKe thongKePage = new BoLocThongKe();
+        dispose();
+        thongKePage.show();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnTinhTienLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhTienLuongActionPerformed

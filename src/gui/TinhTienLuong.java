@@ -261,6 +261,11 @@ public class TinhTienLuong extends javax.swing.JFrame{
 
         cbChonDoiTuongXuat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cbChonDoiTuongXuat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tính phiếu lương Phòng Ban", "Tính phiếu lương Phân Xưởng" }));
+        cbChonDoiTuongXuat.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbChonDoiTuongXuatItemStateChanged(evt);
+            }
+        });
         cbChonDoiTuongXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbChonDoiTuongXuatActionPerformed(evt);
@@ -392,7 +397,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnUser.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\user-icon.png")); // NOI18N
+        btnUser.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\user-icon.png")); // NOI18N
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserActionPerformed(evt);
@@ -405,12 +410,14 @@ public class TinhTienLuong extends javax.swing.JFrame{
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUser)
+                .addComponent(btnUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnUser, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
@@ -640,6 +647,8 @@ public class TinhTienLuong extends javax.swing.JFrame{
         cbEntity.setSelectedIndex(0);
         cbMonth.setSelectedIndex(0);
         tabModelNhanVien.setRowCount(0);
+        tabModelCongNhan.setRowCount(0);
+        tableModelDonVi.setRowCount(0);
         taDetail.setText("");
     }//GEN-LAST:event_btnXoaRongActionPerformed
 
@@ -749,32 +758,47 @@ public class TinhTienLuong extends javax.swing.JFrame{
     }//GEN-LAST:event_tblPLNhanVienMousePressed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-        
-    }//GEN-LAST:event_btnExportActionPerformed
-        
-    private void tblPLCongNhanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLCongNhanMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblPLCongNhanMouseEntered
-
-    private void tblPLCongNhanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLCongNhanMousePressed
-        int a = tblPLNhanVien.getSelectedRow();
-        FileWriter fw,fw2;
-        BufferedWriter bw,bw2;
+        int a = tblPLCongNhan.getSelectedRow();
+        FileWriter fw;
+        BufferedWriter bw;
         if(a != -1)
         {
+            if(tblPLCongNhan.getRowCount() > 0)
+            {
+                int cf = JOptionPane.showConfirmDialog(rootPane, "Đồng ý xuất phiếu lương PLCN ra tệp .txt ?");
+                if(cf == JOptionPane.YES_OPTION)
+                {
+                    try {
+                        File file = new File("data/PhieuLuongCongNhan.txt");
+                        if(!file.exists())
+                            file.createNewFile();
+                        fw = new FileWriter(file);
+                        bw = new BufferedWriter(fw);
+                        for (int i = 0; i < tblPLCongNhan.getRowCount(); i++) {
+                            for (int j = 0; j < tblPLCongNhan.getColumnCount(); j++) {
+                                bw.write(tblPLCongNhan.getValueAt(i, j).toString()+"\t");
+                            }
+                            bw.write("\n------------------------------------------------------------------------------------------------------------------\n");
+                        }
+                        bw.close();
+                        fw.close();
+                        JOptionPane.showMessageDialog(this, "Xuất ra tệp PhieuLuongCongNhan.txt thành công!");
+                    } catch (HeadlessException | IOException e) {
+                    }
+                }
+            }
+        }else{
             if(tblPLNhanVien.getRowCount() > 0)
             {
-                int cf = JOptionPane.showConfirmDialog(rootPane, "Đồng ý xuất phiếu lương NVHC ra tệp .txt ?");
+                int cf = JOptionPane.showConfirmDialog(rootPane, "Đồng ý xuất phiếu lương PLNV ra tệp .txt ?");
                 if(cf == JOptionPane.YES_OPTION)
                 {
                     try {
                         File file = new File("data/PhieuLuongNhanVien.txt");
                         if(!file.exists())
-                        file.createNewFile();
+                            file.createNewFile();
                         fw = new FileWriter(file);
                         bw = new BufferedWriter(fw);
-                        bw.write("STT\tLoaiPL\tT\tMaN.V\tTenN.V\tP.B\tSONC\tNghiPhep\tKoPhep\tGioTC\tTienTC\tPhuCap\tDonViChamCong\tPhiPS\tNgayInPL\tTONGTIEN");
-                        bw.write("\n------------------------------------------------------------------------------------------------------------------\n");
                         for (int i = 0; i < tblPLNhanVien.getRowCount(); i++) {
                             for (int j = 0; j < tblPLNhanVien.getColumnCount(); j++) {
                                 bw.write(tblPLNhanVien.getValueAt(i, j).toString()+"\t");
@@ -783,23 +807,48 @@ public class TinhTienLuong extends javax.swing.JFrame{
                         }
                         bw.close();
                         fw.close();
-                        JOptionPane.showMessageDialog(this, "Xuất ra tệp PhieuLuongNhanVien.txt thành công!");
-                    } catch (HeadlessException | IOException e) {
+                        JOptionPane.showMessageDialog(this, "Xuất ra tệp PhieuLuongCongNhan.txt thành công!");
+                    } catch (IOException ex) {
+                        Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
-        }else{
-            int b = tblPLCongNhan.getSelectedRow();
-            if(tblPLCongNhan.getRowCount() > 0)
-            {
-                for (int i = 0; i < tblPLCongNhan.getRowCount(); i++) {
-                    for (int j = 0; j < tblPLCongNhan.getColumnCount(); j++) {
-                        System.out.println(tblPLCongNhan.getValueAt(i, j).toString());
-                    }
-                }
-                JOptionPane.showMessageDialog(this, "Xuất ra tệp PhieuLuongCongNhan.txt thành công!");
-            }
-        }//end Else
+        }//end Else        
+    }//GEN-LAST:event_btnExportActionPerformed
+        
+    private void tblPLCongNhanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLCongNhanMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblPLCongNhanMouseEntered
+
+    private void tblPLCongNhanMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLCongNhanMousePressed
+        int a = tblPLCongNhan.getSelectedRow();
+        cbChonDoiTuongXuat.setSelectedIndex(0);
+        taDetail.setText("");
+        taDetail.append("Số thứ tự: "+tblPLCongNhan.getValueAt(a, 0)+"\t\t\t\t\t\t");
+        taDetail.append("Loại phiếu lương: "+tblPLCongNhan.getValueAt(a, 1));
+        taDetail.append("\n");
+        taDetail.append("Tháng lương: "+tblPLCongNhan.getValueAt(a, 2)+"\t\t\t\t\t\t");
+        taDetail.append("Mã công nhân: "+tblPLCongNhan.getValueAt(a, 3));
+        taDetail.append("\n");
+        taDetail.append("Họ tên công nhân: "+tblPLCongNhan.getValueAt(a, 4)+"\t\t\t\t\t\t");
+        taDetail.append("Phân xưởng: "+tblPLCongNhan.getValueAt(a, 5));
+        taDetail.append("\n");
+        taDetail.append("Ngày khởi công: "+tblPLCongNhan.getValueAt(a, 6)+"\t\t\t\t\t\t");
+        taDetail.append("Số ngày công: "+tblPLCongNhan.getValueAt(a, 7));
+        taDetail.append("\n");
+        taDetail.append("Số ngày nghỉ phép: "+tblPLCongNhan.getValueAt(a, 8)+"\t\t\t\t\t\t");
+        taDetail.append("Số ngày nghỉ không phép: "+tblPLCongNhan.getValueAt(a, 9));
+        taDetail.append("\n");
+        taDetail.append("Tổng sản phẩm: "+tblPLCongNhan.getValueAt(a, 10)+"\t\t\t\t\t\t");
+        taDetail.append("Tổng tiền: "+tblPLCongNhan.getValueAt(a, 11));
+        taDetail.append("\n");
+        taDetail.append("Phụ cấp: "+tblPLCongNhan.getValueAt(a, 12)+"\t\t\t\t\t\t");
+        taDetail.append("Đơn vị chấm công: "+tblPLCongNhan.getValueAt(a, 13));
+        taDetail.append("\n");
+        taDetail.append("Phí phát sinh: "+tblPLCongNhan.getValueAt(a, 14)+"\t\t\t\t\t\t");
+        taDetail.append("Ngày in: "+tblPLCongNhan.getValueAt(a, 15));
+        taDetail.append("\n");
+        taDetail.append("Tổng tiền: "+tblPLCongNhan.getValueAt(a, 16));
     }//GEN-LAST:event_tblPLCongNhanMousePressed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
@@ -809,7 +858,47 @@ public class TinhTienLuong extends javax.swing.JFrame{
     }//GEN-LAST:event_btnUserActionPerformed
 
     private void cbChonDoiTuongXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChonDoiTuongXuatActionPerformed
+   
+    }//GEN-LAST:event_cbChonDoiTuongXuatActionPerformed
+
+    private void tblPLDonViMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLDonViMousePressed
         try {
+            int a = tblPLDonVi.getSelectedRow();
+            Locale localeVN = new Locale("vi", "VN");
+            NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
+            //Format ngayTraLuong
+            DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+            Date date = (Date)formatter.parse(tblPLDonVi.getValueAt(a, 8).toString());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            String ngayTraLuong = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
+            //Format loaiDOnVi.
+            String loaiDonVi = "Phòng ban";
+            int getLoaiDonVi = Integer.parseInt(tblPLDonVi.getValueAt(a, 3).toString());
+            if(getLoaiDonVi == 1)
+                loaiDonVi = "Phân xưởng";
+            taDetail.setText("");
+            taDetail.append("Số thứ tự: "+tblPLDonVi.getValueAt(a, 0)+"\t\t\t\t\t\t");
+            taDetail.append("Loại phiếu lương: "+tblPLDonVi.getValueAt(a, 1));
+            taDetail.append("\n");
+            taDetail.append("Tháng lương: "+tblPLDonVi.getValueAt(a, 2)+"\t\t\t\t\t\t");
+            taDetail.append("Loại đơn vị "+loaiDonVi);
+            taDetail.append("\n");
+            taDetail.append("Mã đơn vị: "+tblPLDonVi.getValueAt(a, 4)+"\t\t\t\t\t\t");
+            taDetail.append("Lương phải trả: "+tblPLDonVi.getValueAt(a, 5));
+            taDetail.append("\n");
+            taDetail.append("Phụ cấp phát sinh: "+tblPLDonVi.getValueAt(a, 6)+"\t\t\t\t\t\t");
+            taDetail.append("Số lượng nhân viên: "+tblPLDonVi.getValueAt(a, 7));
+            taDetail.append("\n");
+            taDetail.append("Ngày trả lương: "+ngayTraLuong+"\t\t\t\t\t\t");
+            taDetail.append("Tổng tiền phải trả: "+nf.format(tblPLDonVi.getValueAt(a, 9)));
+        } catch (ParseException ex) {
+            Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tblPLDonViMousePressed
+
+    private void cbChonDoiTuongXuatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbChonDoiTuongXuatItemStateChanged
+            try {
             Connection conn = Database.getConnection();
             PreparedStatement prestmt = null;
             Statement stmt = conn.createStatement();
@@ -860,44 +949,7 @@ public class TinhTienLuong extends javax.swing.JFrame{
         } catch (SQLException ex) {
             Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_cbChonDoiTuongXuatActionPerformed
-
-    private void tblPLDonViMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPLDonViMousePressed
-        try {
-            int a = tblPLDonVi.getSelectedRow();
-            Locale localeVN = new Locale("vi", "VN");
-            NumberFormat nf = NumberFormat.getCurrencyInstance(localeVN);
-            //Format ngayTraLuong
-            DateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
-            Date date = (Date)formatter.parse(tblPLDonVi.getValueAt(a, 8).toString());
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            String ngayTraLuong = cal.get(Calendar.DATE) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" +         cal.get(Calendar.YEAR);
-            //Format loaiDOnVi.
-            String loaiDonVi = "Phòng ban";
-            int getLoaiDonVi = Integer.parseInt(tblPLDonVi.getValueAt(a, 3).toString());
-            if(getLoaiDonVi == 1)
-                loaiDonVi = "Phân xưởng";
-            taDetail.setText("");
-            taDetail.append("Số thứ tự: "+tblPLDonVi.getValueAt(a, 0)+"\t\t\t\t\t\t");
-            taDetail.append("Loại phiếu lương: "+tblPLDonVi.getValueAt(a, 1));
-            taDetail.append("\n");
-            taDetail.append("Tháng lương: "+tblPLDonVi.getValueAt(a, 2)+"\t\t\t\t\t\t");
-            taDetail.append("Loại đơn vị "+loaiDonVi);
-            taDetail.append("\n");
-            taDetail.append("Mã đơn vị: "+tblPLDonVi.getValueAt(a, 4)+"\t\t\t\t\t\t");
-            taDetail.append("Lương phải trả: "+tblPLDonVi.getValueAt(a, 5));
-            taDetail.append("\n");
-            taDetail.append("Phụ cấp phát sinh: "+tblPLDonVi.getValueAt(a, 6)+"\t\t\t\t\t\t");
-            taDetail.append("Số lượng nhân viên: "+tblPLDonVi.getValueAt(a, 7));
-            taDetail.append("\n");
-            taDetail.append("Ngày trả lương: "+ngayTraLuong+"\t\t\t\t\t\t");
-            taDetail.append("Tổng tiền phải trả: "+nf.format(tblPLDonVi.getValueAt(a, 9)));
-        } catch (ParseException ex) {
-            Logger.getLogger(TinhTienLuong.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_tblPLDonViMousePressed
+    }//GEN-LAST:event_cbChonDoiTuongXuatItemStateChanged
 
     /**
      * @param args the command line arguments

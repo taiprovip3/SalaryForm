@@ -462,7 +462,7 @@ public class BangChamCong_sua extends javax.swing.JFrame{
         }
         if(signTime == "rdTime3")
             getDate = new Date();
-        if(getMaBCC.length()<=3 || getDate == null)
+        if(!txtBCC.getText().matches("[0-9]{1,}") || getDate == null)
             JOptionPane.showMessageDialog(rootPane, "Vui lòng kiểm tra lại các trường dữ liệu!");
         else
         {

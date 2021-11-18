@@ -29,6 +29,8 @@ public class QuanLyDonNghi_them extends javax.swing.JFrame {
      */
     public QuanLyDonNghi_them() {
         initComponents();
+        pack();
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -110,6 +110,11 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
         btnTimKiem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnTimKiem.setText("Quản lý tìm kiếm");
         btnTimKiem.setFocusable(false);
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         btnThongKe.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnThongKe.setText("Quản lý thông kê");
@@ -238,7 +243,7 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
             .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        btnUser.setIcon(new javax.swing.ImageIcon("F:\\Hoc ki 3\\Phat Trien Ung Dung\\user-icon.png")); // NOI18N
+        btnUser.setIcon(new javax.swing.ImageIcon("C:\\Users\\taito\\Documents\\NetBeansProjects\\n11_qllsp\\data\\img-Icon\\user-icon.png")); // NOI18N
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserActionPerformed(evt);
@@ -407,6 +412,13 @@ public class QuanLyBangChamCong extends javax.swing.JFrame {
         optionPage.show();
         this.dispose();
     }//GEN-LAST:event_btnUserActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+        BoLocTimKiem searchPage = new BoLocTimKiem();
+        dispose();
+        searchPage.show();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
     /**
      * @param args the command line arguments

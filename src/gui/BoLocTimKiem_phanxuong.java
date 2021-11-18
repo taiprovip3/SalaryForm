@@ -22,7 +22,9 @@ public class BoLocTimKiem_phanxuong extends javax.swing.JFrame {
      */
     public BoLocTimKiem_phanxuong() {
         initComponents();
-        
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
         HeaderRenderer header = new HeaderRenderer(table.getTableHeader().getDefaultRenderer());
         TableColumnModel columnModel = table.getColumnModel();
         int tabSize = table.getColumnCount();
