@@ -2,12 +2,16 @@ BangChamCong: (1 ngay / 1 bang cham cong)
 	- maBCC
 	- ngayChamCong
 	- phanXuong PhanXuong
+	- soLuongCongNhan(Javatable)
 ChiTietBangChamCong:
-	- maBCC
+	- tenPhanXuong
+	- maCongNhan (có trùng)
+	- tenCongNhan
+	- maSanPham
+	- soLuong
+	- donGia
 	- ngayChamCong
-	- maPhanXuong
-	- soLuongCongNhan
-	- viTriPhanXuong
+		
 DonNghi: (1 ngay / 1 don nghi)
 	- maNhanVien
 	- tenNhanVien
