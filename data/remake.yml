@@ -1,0 +1,50 @@
+BangChamCong: (1 ngay / 1 bang cham cong)
+	- maBCC
+	- ngayChamCong
+	- phanXuong PhanXuong
+ChiTietBangChamCong:
+	- maBCC
+	- ngayChamCong
+	- maPhanXuong
+	- soLuongCongNhan
+	- viTriPhanXuong
+DonNghi: (1 ngay / 1 don nghi)
+	- maNhanVien
+	- tenNhanVien
+	- loaiNhanVien
+	- lyDo
+	- thangNghi
+HopDong:
+	- maHopDong
+	- tenDoiTac
+	- tienHopDong
+	- ngayKyHopDong
+	- ngayGiaoHang
+	- sanPham SanPham (mã sản phẩm)
+(
+NhanVien:
+	- maNhanVien String
+	- tenNhanVien String
+	- namSinh int
+	- gioiTinh String
+	- soDienThoai String
+	- phongBan PhongBan (mã phòng ban)
+TangCa:
+	- nhanVien NhanVien(maNhanVien)
+	- soGioTangCa int		//select sum(soGioTangCa*bonusTangCa) from TangCa where maNhanVien = 'NV1' and thangTangCa = '11';
+	- bonusTangCa float
+	- thangTangCa int
+PhieuLuongNhanVien:
+	- maPL String
+	- nhanVien NhanVien (mã nhân viên)
+	- soNgayCong int
+	- tangCa TangCa (bonus tăng ca)
+	- thangLuong int
+	- luongTra float
+	- ghiChu String
+)
+(
+CongNhan:
+	- maCongNhan
+	-
+)
